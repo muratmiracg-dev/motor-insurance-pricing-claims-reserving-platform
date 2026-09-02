@@ -1,0 +1,221 @@
+garage_id,garage_region,network_watchlist_signal
+GAR-0001,Central Anatolia,False
+GAR-0002,Marmara,False
+GAR-0003,Marmara,False
+GAR-0004,Marmara,False
+GAR-0005,Central Anatolia,False
+GAR-0006,Central Anatolia,False
+GAR-0007,Eastern Anatolia,True
+GAR-0008,Aegean,False
+GAR-0009,Marmara,False
+GAR-0010,Mediterranean,False
+GAR-0011,Marmara,True
+GAR-0012,Central Anatolia,False
+GAR-0013,Central Anatolia,False
+GAR-0014,Black Sea,True
+GAR-0015,Southeastern Anatolia,False
+GAR-0016,Mediterranean,False
+GAR-0017,Central Anatolia,False
+GAR-0018,Southeastern Anatolia,False
+GAR-0019,Southeastern Anatolia,False
+GAR-0020,Black Sea,False
+GAR-0021,Marmara,False
+GAR-0022,Mediterranean,True
+GAR-0023,Southeastern Anatolia,False
+GAR-0024,Central Anatolia,False
+GAR-0025,Mediterranean,False
+GAR-0026,Marmara,False
+GAR-0027,Marmara,False
+GAR-0028,Marmara,False
+GAR-0029,Southeastern Anatolia,False
+GAR-0030,Central Anatolia,False
+GAR-0031,Aegean,False
+GAR-0032,Aegean,False
+GAR-0033,Black Sea,False
+GAR-0034,Eastern Anatolia,False
+GAR-0035,Aegean,False
+GAR-0036,Central Anatolia,False
+GAR-0037,Black Sea,False
+GAR-0038,Central Anatolia,False
+GAR-0039,Marmara,False
+GAR-0040,Aegean,False
+GAR-0041,Central Anatolia,False
+GAR-0042,Central Anatolia,False
+GAR-0043,Mediterranean,False
+GAR-0044,Marmara,True
+GAR-0045,Mediterranean,False
+GAR-0046,Central Anatolia,False
+GAR-0047,Central Anatolia,False
+GAR-0048,Mediterranean,False
+GAR-0049,Central Anatolia,False
+GAR-0050,Marmara,False
+GAR-0051,Marmara,False
+GAR-0052,Aegean,True
+GAR-0053,Mediterranean,False
+GAR-0054,Marmara,False
+GAR-0055,Central Anatolia,False
+GAR-0056,Central Anatolia,False
+GAR-0057,Eastern Anatolia,False
+GAR-0058,Central Anatolia,False
+GAR-0059,Marmara,False
+GAR-0060,Marmara,False
+GAR-0061,Southeastern Anatolia,False
+GAR-0062,Central Anatolia,False
+GAR-0063,Southeastern Anatolia,False
+GAR-0064,Southeastern Anatolia,False
+GAR-0065,Black Sea,False
+GAR-0066,Black Sea,False
+GAR-0067,Mediterranean,False
+GAR-0068,Marmara,False
+GAR-0069,Central Anatolia,False
+GAR-0070,Eastern Anatolia,False
+GAR-0071,Mediterranean,False
+GAR-0072,Central Anatolia,False
+GAR-0073,Marmara,False
+GAR-0074,Aegean,False
+GAR-0075,Aegean,False
+GAR-0076,Marmara,False
+GAR-0077,Aegean,False
+GAR-0078,Southeastern Anatolia,False
+GAR-0079,Central Anatolia,False
+GAR-0080,Marmara,True
+GAR-0081,Black Sea,False
+GAR-0082,Marmara,False
+GAR-0083,Central Anatolia,False
+GAR-0084,Marmara,False
+GAR-0085,Central Anatolia,False
+GAR-0086,Marmara,False
+GAR-0087,Marmara,False
+GAR-0088,Marmara,False
+GAR-0089,Black Sea,False
+GAR-0090,Eastern Anatolia,True
+GAR-0091,Eastern Anatolia,False
+GAR-0092,Marmara,False
+GAR-0093,Southeastern Anatolia,False
+GAR-0094,Aegean,False
+GAR-0095,Marmara,False
+GAR-0096,Aegean,False
+GAR-0097,Marmara,False
+GAR-0098,Aegean,False
+GAR-0099,Marmara,False
+GAR-0100,Marmara,False
+GAR-0101,Southeastern Anatolia,False
+GAR-0102,Marmara,False
+GAR-0103,Marmara,False
+GAR-0104,Central Anatolia,False
+GAR-0105,Aegean,False
+GAR-0106,Eastern Anatolia,False
+GAR-0107,Aegean,False
+GAR-0108,Mediterranean,False
+GAR-0109,Black Sea,False
+GAR-0110,Marmara,False
+GAR-0111,Black Sea,False
+GAR-0112,Central Anatolia,False
+GAR-0113,Central Anatolia,False
+GAR-0114,Mediterranean,False
+GAR-0115,Marmara,False
+GAR-0116,Marmara,False
+GAR-0117,Black Sea,False
+GAR-0118,Black Sea,False
+GAR-0119,Marmara,False
+GAR-0120,Central Anatolia,False
+GAR-0121,Black Sea,False
+GAR-0122,Mediterranean,False
+GAR-0123,Southeastern Anatolia,False
+GAR-0124,Marmara,False
+GAR-0125,Black Sea,False
+GAR-0126,Central Anatolia,False
+GAR-0127,Mediterranean,False
+GAR-0128,Marmara,False
+GAR-0129,Mediterranean,False
+GAR-0130,Marmara,False
+GAR-0131,Central Anatolia,False
+GAR-0132,Marmara,True
+GAR-0133,Southeastern Anatolia,False
+GAR-0134,Marmara,False
+GAR-0135,Eastern Anatolia,False
+GAR-0136,Marmara,False
+GAR-0137,Marmara,False
+GAR-0138,Southeastern Anatolia,False
+GAR-0139,Marmara,False
+GAR-0140,Central Anatolia,False
+GAR-0141,Aegean,False
+GAR-0142,Mediterranean,True
+GAR-0143,Eastern Anatolia,False
+GAR-0144,Black Sea,False
+GAR-0145,Marmara,False
+GAR-0146,Marmara,False
+GAR-0147,Aegean,False
+GAR-0148,Aegean,False
+GAR-0149,Central Anatolia,False
+GAR-0150,Southeastern Anatolia,False
+GAR-0151,Central Anatolia,False
+GAR-0152,Marmara,False
+GAR-0153,Black Sea,False
+GAR-0154,Black Sea,False
+GAR-0155,Marmara,False
+GAR-0156,Central Anatolia,False
+GAR-0157,Aegean,False
+GAR-0158,Marmara,False
+GAR-0159,Marmara,False
+GAR-0160,Central Anatolia,False
+GAR-0161,Eastern Anatolia,False
+GAR-0162,Marmara,False
+GAR-0163,Black Sea,False
+GAR-0164,Marmara,False
+GAR-0165,Marmara,False
+GAR-0166,Black Sea,False
+GAR-0167,Aegean,False
+GAR-0168,Mediterranean,False
+GAR-0169,Marmara,False
+GAR-0170,Central Anatolia,False
+GAR-0171,Central Anatolia,False
+GAR-0172,Aegean,False
+GAR-0173,Marmara,False
+GAR-0174,Marmara,False
+GAR-0175,Aegean,False
+GAR-0176,Marmara,False
+GAR-0177,Marmara,False
+GAR-0178,Central Anatolia,False
+GAR-0179,Mediterranean,False
+GAR-0180,Marmara,False
+GAR-0181,Black Sea,False
+GAR-0182,Southeastern Anatolia,False
+GAR-0183,Central Anatolia,False
+GAR-0184,Marmara,False
+GAR-0185,Central Anatolia,False
+GAR-0186,Marmara,False
+GAR-0187,Black Sea,False
+GAR-0188,Aegean,False
+GAR-0189,Eastern Anatolia,False
+GAR-0190,Marmara,False
+GAR-0191,Central Anatolia,False
+GAR-0192,Central Anatolia,False
+GAR-0193,Marmara,False
+GAR-0194,Mediterranean,False
+GAR-0195,Central Anatolia,False
+GAR-0196,Marmara,False
+GAR-0197,Marmara,False
+GAR-0198,Central Anatolia,False
+GAR-0199,Central Anatolia,False
+GAR-0200,Marmara,False
+GAR-0201,Mediterranean,False
+GAR-0202,Aegean,False
+GAR-0203,Central Anatolia,True
+GAR-0204,Mediterranean,False
+GAR-0205,Central Anatolia,False
+GAR-0206,Black Sea,False
+GAR-0207,Marmara,False
+GAR-0208,Marmara,False
+GAR-0209,Eastern Anatolia,False
+GAR-0210,Central Anatolia,False
+GAR-0211,Aegean,True
+GAR-0212,Eastern Anatolia,False
+GAR-0213,Mediterranean,False
+GAR-0214,Aegean,False
+GAR-0215,Central Anatolia,False
+GAR-0216,Marmara,False
+GAR-0217,Central Anatolia,False
+GAR-0218,Eastern Anatolia,False
+GAR-0219,Central Anatolia,False
+GAR-0220,Central Anatolia,False

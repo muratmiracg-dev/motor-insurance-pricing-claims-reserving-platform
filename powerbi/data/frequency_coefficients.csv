@@ -1,0 +1,37 @@
+model,feature,log_link_coefficient,multiplicative_effect
+Poisson frequency,categorical__usage_type_Commercial,0.2502309429143051,1.2843219875036591
+Poisson frequency,categorical__usage_type_Private,-0.1606265901015519,0.8516100113502956
+Poisson frequency,numerical__no_claim_years,-0.1460618788812051,0.864104231727179
+Poisson frequency,categorical__region_Marmara,0.1342598780176805,1.143690000917814
+Poisson frequency,numerical__annual_km,0.1335760233049317,1.1429081504872831
+Poisson frequency,numerical__license_years,-0.11242195168649,0.8936670935961769
+Poisson frequency,categorical__vehicle_segment_A-Mini,0.0825085963239736,1.0860080090756143
+Poisson frequency,numerical__vehicle_age,0.0812107742228831,1.084599478088501
+Poisson frequency,categorical__region_Eastern Anatolia,-0.0648318313299211,0.9372250620176992
+Poisson frequency,categorical__region_Southeastern Anatolia,-0.0648042141003824,0.937250945934786
+Poisson frequency,numerical__driver_age,-0.0580671407302559,0.9435865922171032
+Poisson frequency,categorical__region_Aegean,0.0564892908674078,1.0581152832426846
+Poisson frequency,categorical__coverage_package_Premium,0.051064019990317,1.052390265141192
+Poisson frequency,categorical__vehicle_segment_LCV,-0.0451527962228291,0.9558514201879597
+Poisson frequency,categorical__vehicle_segment_C-Medium,0.0414327346965285,1.04230304866253
+Poisson frequency,categorical__vehicle_segment_D-Large,-0.0398566846400374,0.9609271449040824
+Poisson frequency,categorical__fuel_type_Petrol,0.0348957101018645,1.035511709757388
+Poisson frequency,categorical__usage_type_Fleet,-0.0304097786419647,0.970047947162438
+Poisson frequency,categorical__sales_channel_Bank,0.0301496670328774,1.030608770567909
+Poisson frequency,categorical__fuel_type_Hybrid,0.0265511288638653,1.026906750494904
+Poisson frequency,categorical__coverage_package_Standard,0.0237415770420078,1.0240256519561792
+Poisson frequency,categorical__region_Mediterranean,0.0235835805179464,1.0238638722432731
+Poisson frequency,categorical__region_Central Anatolia,-0.0233394004119198,0.9769308567640858
+Poisson frequency,categorical__vehicle_segment_B-Compact,0.0227754294896678,1.023036769858939
+Poisson frequency,numerical__vehicle_value,0.0223452295410376,1.0225967541472536
+Poisson frequency,categorical__sales_channel_Broker,0.0213039998148992,1.0215325501455508
+Poisson frequency,categorical__sales_channel_Agency,0.015810872751662,1.0159365259557336
+Poisson frequency,categorical__coverage_package_Extended,-0.0156110228615315,0.9845101975445965
+Poisson frequency,categorical__fuel_type_Electric,-0.0151354692077019,0.9849784963080396
+Poisson frequency,numerical__customer_tenure_years,0.0138630434766876,1.0139595810495932
+Poisson frequency,numerical__deductible,0.013023005724119,1.0131081743788732
+Poisson frequency,categorical__fuel_type_Diesel,0.012883204412766,1.0129665504273904
+Poisson frequency,categorical__sales_channel_Direct,-0.0080699654286446,0.9919625093269312
+Poisson frequency,numerical__policy_start_month_index,-0.0043822371725231,0.9956273508180656
+Poisson frequency,categorical__vehicle_segment_SUV,-0.0025127054765108,0.9974904487254818
+Poisson frequency,categorical__region_Black Sea,-0.0021627293900201,0.9978396076241072

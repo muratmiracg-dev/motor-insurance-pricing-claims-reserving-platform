@@ -1,0 +1,27 @@
+project:
+  name: Motor Insurance Technical Pricing, Claims & Reserving Analytics Platform
+  seed: 20260902
+  valuation_date: 2025-12-31
+  portfolio_start: 2023-01-01
+  n_policies: 60000
+  sample_rows: 250
+
+economics:
+  expense_ratio: 0.18
+  commission_ratio: 0.12
+  expected_loss_ratio: 0.68
+  annual_claim_inflation: 0.32
+
+modeling:
+  train_end: 2024-12-31
+  test_start: 2025-01-01
+  poisson_alpha: 0.0005
+  gamma_alpha: 0.001
+  fraud_alert_rate: 0.05
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  artifacts_dir: artifacts
+  reports_dir: reports
+

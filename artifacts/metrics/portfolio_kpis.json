@@ -1,0 +1,19 @@
+{
+  "policy_count": 60000,
+  "exposure_years": 51365.6,
+  "claim_count": 8542,
+  "open_claim_count": 1573,
+  "closed_claim_count": 6969,
+  "written_premium": 1523426467.02,
+  "earned_premium": 1230160546.03,
+  "paid_claims": 725753833.13,
+  "case_reserve": 162808036.18,
+  "incurred_claims": 888561869.31,
+  "ultimate_claims_synthetic_truth": 896209884.8,
+  "claim_frequency": 0.166298,
+  "average_incurred_severity": 104022.7,
+  "loss_ratio": 0.722314,
+  "expense_and_commission_ratio": 0.308452,
+  "combined_ratio": 1.030766,
+  "open_claim_rate": 0.184149
+}

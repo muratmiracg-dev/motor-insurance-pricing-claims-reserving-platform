@@ -158,7 +158,7 @@ See [the data dictionary](docs/DATA_DICTIONARY.md) and the
 ├── config/                 # Seed, valuation, economics, and model assumptions
 ├── data/sample/            # Small reviewable samples; full raw data are generated
 ├── src/motor_insurance/    # Generation, KPI, pricing, reserving, triage, reporting
-├── artifacts/              # Verified metrics, scores, triangles, and coefficients
+├── artifacts/              # Versioned aggregate evidence; large scores regenerate locally
 ├── reports/                # Executive summary and Excel analytical workbench
 ├── powerbi/                # Six-page dashboard package, data marts, theme and DAX
 ├── sql/                    # PostgreSQL star-like analytical model
@@ -188,7 +188,7 @@ PYTHONPATH=src python scripts/run_pipeline.py --n-policies 6000
 | Output | Purpose |
 | --- | --- |
 | `artifacts/run_manifest.json` | Reproducible run identity and verified metrics |
-| `artifacts/pricing/policy_pricing_scores.csv` | Policy-level indication and adequacy review |
+| `artifacts/pricing/policy_pricing_scores.csv` | Generated policy-level indication and adequacy review |
 | `artifacts/pricing/*_coefficients.csv` | Explainable GLM factors |
 | `artifacts/reserving/*triangle.csv` | Paid-loss development evidence |
 | `artifacts/reserving/reserve_by_accident_quarter.csv` | Chain Ladder and BF comparison |

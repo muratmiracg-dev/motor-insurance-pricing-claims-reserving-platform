@@ -1,0 +1,37 @@
+model,feature,log_link_coefficient,multiplicative_effect
+Gamma severity,numerical__vehicle_value,0.3438606140906915,1.4103820344239457
+Gamma severity,numerical__policy_start_month_index,0.16639485365489398,1.1810393473707022
+Gamma severity,categorical__vehicle_segment_D-Large,0.15645498783096679,1.1693581257887913
+Gamma severity,categorical__vehicle_segment_B-Compact,-0.13878010540339508,0.8704194079404095
+Gamma severity,numerical__vehicle_age,-0.13362325585994106,0.8749196233608945
+Gamma severity,categorical__sales_channel_Broker,-0.09525787764887922,0.9091384577483884
+Gamma severity,categorical__vehicle_segment_C-Medium,0.0892268282732184,1.0933286260463015
+Gamma severity,categorical__vehicle_segment_A-Mini,-0.08654355914847679,0.9170956000112364
+Gamma severity,categorical__region_Southeastern Anatolia,0.08443710217815671,1.0881044026827476
+Gamma severity,categorical__sales_channel_Agency,0.0781158952654873,1.081247962928579
+Gamma severity,categorical__vehicle_segment_LCV,-0.07525259863155825,0.9275091691888095
+Gamma severity,categorical__fuel_type_Electric,0.07191963899316607,1.074568987148276
+Gamma severity,categorical__vehicle_segment_SUV,0.05776635520120684,1.0594674277359477
+Gamma severity,categorical__fuel_type_Hybrid,-0.05107163847008667,0.9502105964607043
+Gamma severity,categorical__usage_type_Commercial,0.037600700643163856,1.0383165509619048
+Gamma severity,numerical__customer_tenure_years,0.03753128720847392,1.0382444803451705
+Gamma severity,categorical__region_Eastern Anatolia,-0.03204505323588961,0.9684629487066142
+Gamma severity,categorical__region_Central Anatolia,-0.029176024437845435,0.9712454864781269
+Gamma severity,categorical__usage_type_Private,-0.028245910496678933,0.9721492756937133
+Gamma severity,categorical__coverage_package_Extended,0.025147667734226324,1.0254665376645826
+Gamma severity,categorical__sales_channel_Direct,0.023906094041872463,1.0241941354430424
+Gamma severity,numerical__deductible,-0.02329932543097638,0.9769700080340417
+Gamma severity,categorical__fuel_type_Diesel,-0.022086895436452158,0.9781552341321796
+Gamma severity,categorical__coverage_package_Standard,-0.021968897994258968,0.9782706607577645
+Gamma severity,numerical__driver_age,-0.017514430893724207,0.982638055217411
+Gamma severity,categorical__region_Mediterranean,-0.014861763689124905,0.9852481272562149
+Gamma severity,numerical__license_years,0.012505474837003266,1.012583995257785
+Gamma severity,numerical__annual_km,0.010365952763424315,1.0104198653759395
+Gamma severity,categorical__usage_type_Fleet,-0.006482882024540603,0.9935380865184658
+Gamma severity,categorical__region_Black Sea,-0.005770474459823089,0.9942461427494977
+Gamma severity,categorical__fuel_type_Petrol,0.004110803035363802,1.0041192639759422
+Gamma severity,categorical__sales_channel_Bank,-0.0038922035365261324,0.9961153612698874
+Gamma severity,numerical__no_claim_years,-0.0035369074017626203,0.9964693400874544
+Gamma severity,categorical__region_Aegean,0.0012273796270696542,1.0012281331657051
+Gamma severity,categorical__region_Marmara,-0.0009392578605816034,0.9990611831040122
+Gamma severity,categorical__coverage_package_Premium,-0.0003068616179978962,0.9996931854592129

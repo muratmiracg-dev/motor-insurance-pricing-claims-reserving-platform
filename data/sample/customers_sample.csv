@@ -1,0 +1,251 @@
+customer_id,driver_age,license_years,region,customer_tenure_years
+CUS-0000001,31,1,Aegean,3.5
+CUS-0000002,36,18,Marmara,13.5
+CUS-0000003,49,18,Marmara,6.4
+CUS-0000004,30,11,Marmara,4.2
+CUS-0000005,50,27,Marmara,4.5
+CUS-0000006,31,13,Mediterranean,9.7
+CUS-0000007,40,4,Central Anatolia,9.2
+CUS-0000008,36,6,Marmara,3.1
+CUS-0000009,23,5,Mediterranean,9.2
+CUS-0000010,37,10,Marmara,3.5
+CUS-0000011,31,13,Mediterranean,2.3
+CUS-0000012,26,3,Marmara,2.7
+CUS-0000013,22,4,Mediterranean,1.0
+CUS-0000014,52,10,Southeastern Anatolia,2.9
+CUS-0000015,37,18,Aegean,4.3
+CUS-0000016,42,0,Mediterranean,2.0
+CUS-0000017,43,20,Central Anatolia,3.8
+CUS-0000018,48,9,Marmara,6.0
+CUS-0000019,40,22,Marmara,2.2
+CUS-0000020,37,19,Marmara,5.5
+CUS-0000021,38,13,Central Anatolia,1.1
+CUS-0000022,43,14,Central Anatolia,6.4
+CUS-0000023,47,13,Southeastern Anatolia,4.6
+CUS-0000024,52,12,Central Anatolia,2.1
+CUS-0000025,37,18,Marmara,2.1
+CUS-0000026,37,7,Aegean,4.1
+CUS-0000027,19,1,Central Anatolia,5.0
+CUS-0000028,56,5,Central Anatolia,3.2
+CUS-0000029,42,20,Aegean,5.3
+CUS-0000030,37,19,Aegean,13.0
+CUS-0000031,58,4,Black Sea,3.4
+CUS-0000032,56,24,Marmara,3.2
+CUS-0000033,43,7,Marmara,4.8
+CUS-0000034,64,33,Marmara,2.2
+CUS-0000035,44,26,Marmara,2.4
+CUS-0000036,37,10,Marmara,3.8
+CUS-0000037,40,22,Mediterranean,1.4
+CUS-0000038,69,20,Aegean,8.9
+CUS-0000039,47,4,Marmara,4.3
+CUS-0000040,41,22,Black Sea,5.4
+CUS-0000041,33,9,Central Anatolia,6.2
+CUS-0000042,50,27,Central Anatolia,7.4
+CUS-0000043,54,27,Eastern Anatolia,0.2
+CUS-0000044,28,3,Central Anatolia,3.4
+CUS-0000045,52,6,Black Sea,1.5
+CUS-0000046,58,19,Marmara,1.9
+CUS-0000047,34,16,Marmara,3.9
+CUS-0000048,43,25,Southeastern Anatolia,3.0
+CUS-0000049,51,13,Central Anatolia,3.8
+CUS-0000050,58,0,Southeastern Anatolia,1.5
+CUS-0000051,45,4,Aegean,1.5
+CUS-0000052,28,3,Mediterranean,4.2
+CUS-0000053,35,3,Eastern Anatolia,2.4
+CUS-0000054,60,12,Southeastern Anatolia,0.6
+CUS-0000055,57,29,Marmara,2.6
+CUS-0000056,61,9,Southeastern Anatolia,1.7
+CUS-0000057,57,15,Marmara,2.4
+CUS-0000058,24,6,Aegean,2.4
+CUS-0000059,49,11,Black Sea,4.5
+CUS-0000060,39,12,Central Anatolia,3.3
+CUS-0000061,41,8,Marmara,1.9
+CUS-0000062,37,11,Aegean,1.8
+CUS-0000063,33,15,Black Sea,1.1
+CUS-0000064,39,10,Marmara,8.0
+CUS-0000065,40,21,Mediterranean,2.9
+CUS-0000066,41,7,Marmara,6.0
+CUS-0000067,41,13,Marmara,7.1
+CUS-0000068,51,13,Marmara,3.2
+CUS-0000069,43,0,Mediterranean,5.3
+CUS-0000070,38,20,Black Sea,0.8
+CUS-0000071,47,11,Marmara,0.3
+CUS-0000072,39,21,Central Anatolia,3.5
+CUS-0000073,54,3,Mediterranean,4.4
+CUS-0000074,50,21,Central Anatolia,7.2
+CUS-0000075,48,23,Marmara,6.9
+CUS-0000076,58,4,Marmara,8.9
+CUS-0000077,46,28,Marmara,2.7
+CUS-0000078,41,15,Mediterranean,8.5
+CUS-0000079,42,10,Central Anatolia,8.7
+CUS-0000080,54,9,Marmara,7.2
+CUS-0000081,31,12,Marmara,4.7
+CUS-0000082,47,21,Aegean,9.4
+CUS-0000083,41,17,Marmara,7.3
+CUS-0000084,37,5,Aegean,6.1
+CUS-0000085,59,0,Black Sea,6.1
+CUS-0000086,68,14,Central Anatolia,4.5
+CUS-0000087,68,13,Mediterranean,8.7
+CUS-0000088,49,23,Mediterranean,3.6
+CUS-0000089,54,22,Mediterranean,2.8
+CUS-0000090,40,18,Central Anatolia,7.4
+CUS-0000091,24,6,Mediterranean,6.4
+CUS-0000092,46,11,Black Sea,2.1
+CUS-0000093,36,8,Mediterranean,7.3
+CUS-0000094,54,27,Marmara,1.3
+CUS-0000095,44,13,Marmara,5.1
+CUS-0000096,31,13,Black Sea,1.7
+CUS-0000097,33,13,Marmara,3.5
+CUS-0000098,45,10,Aegean,4.5
+CUS-0000099,47,16,Southeastern Anatolia,5.9
+CUS-0000100,37,19,Mediterranean,4.3
+CUS-0000101,49,12,Mediterranean,8.3
+CUS-0000102,53,6,Marmara,2.6
+CUS-0000103,40,22,Eastern Anatolia,1.7
+CUS-0000104,40,13,Marmara,12.3
+CUS-0000105,40,22,Black Sea,1.9
+CUS-0000106,39,21,Central Anatolia,5.4
+CUS-0000107,64,11,Mediterranean,2.7
+CUS-0000108,26,0,Marmara,1.9
+CUS-0000109,34,16,Central Anatolia,9.8
+CUS-0000110,40,14,Marmara,5.0
+CUS-0000111,52,13,Black Sea,1.1
+CUS-0000112,57,8,Aegean,6.5
+CUS-0000113,31,13,Marmara,5.4
+CUS-0000114,49,18,Southeastern Anatolia,2.9
+CUS-0000115,43,20,Marmara,6.7
+CUS-0000116,46,11,Central Anatolia,5.0
+CUS-0000117,49,1,Central Anatolia,15.3
+CUS-0000118,45,6,Southeastern Anatolia,1.6
+CUS-0000119,46,0,Central Anatolia,5.1
+CUS-0000120,30,12,Central Anatolia,3.2
+CUS-0000121,33,15,Central Anatolia,6.6
+CUS-0000122,37,9,Central Anatolia,4.6
+CUS-0000123,38,20,Eastern Anatolia,1.3
+CUS-0000124,42,0,Black Sea,7.7
+CUS-0000125,53,11,Marmara,4.7
+CUS-0000126,40,2,Marmara,3.1
+CUS-0000127,62,2,Southeastern Anatolia,9.4
+CUS-0000128,42,16,Mediterranean,2.6
+CUS-0000129,41,23,Marmara,3.4
+CUS-0000130,54,10,Central Anatolia,4.1
+CUS-0000131,51,18,Central Anatolia,5.4
+CUS-0000132,35,11,Black Sea,11.6
+CUS-0000133,60,18,Marmara,10.6
+CUS-0000134,62,16,Central Anatolia,0.8
+CUS-0000135,39,0,Black Sea,8.1
+CUS-0000136,27,5,Central Anatolia,6.4
+CUS-0000137,21,3,Marmara,4.7
+CUS-0000138,20,2,Aegean,2.1
+CUS-0000139,33,15,Marmara,3.0
+CUS-0000140,66,24,Aegean,2.9
+CUS-0000141,33,15,Mediterranean,7.5
+CUS-0000142,51,9,Central Anatolia,6.9
+CUS-0000143,48,6,Aegean,0.6
+CUS-0000144,34,16,Eastern Anatolia,5.9
+CUS-0000145,35,17,Black Sea,10.2
+CUS-0000146,60,22,Aegean,2.9
+CUS-0000147,45,2,Central Anatolia,3.4
+CUS-0000148,57,20,Aegean,5.7
+CUS-0000149,43,19,Marmara,7.7
+CUS-0000150,42,9,Aegean,6.9
+CUS-0000151,38,16,Southeastern Anatolia,3.9
+CUS-0000152,71,6,Central Anatolia,4.1
+CUS-0000153,27,9,Marmara,6.5
+CUS-0000154,33,15,Marmara,1.1
+CUS-0000155,26,0,Aegean,1.3
+CUS-0000156,35,17,Marmara,4.9
+CUS-0000157,22,4,Black Sea,4.0
+CUS-0000158,36,11,Southeastern Anatolia,9.5
+CUS-0000159,40,14,Southeastern Anatolia,4.3
+CUS-0000160,53,12,Central Anatolia,1.3
+CUS-0000161,60,9,Central Anatolia,10.5
+CUS-0000162,52,19,Southeastern Anatolia,7.6
+CUS-0000163,45,23,Mediterranean,5.1
+CUS-0000164,41,15,Marmara,4.4
+CUS-0000165,42,11,Black Sea,3.8
+CUS-0000166,55,30,Marmara,2.8
+CUS-0000167,18,0,Black Sea,2.0
+CUS-0000168,36,5,Central Anatolia,1.1
+CUS-0000169,34,11,Central Anatolia,2.1
+CUS-0000170,34,15,Central Anatolia,2.1
+CUS-0000171,31,7,Black Sea,2.2
+CUS-0000172,50,24,Mediterranean,2.6
+CUS-0000173,39,21,Aegean,7.1
+CUS-0000174,43,25,Mediterranean,5.0
+CUS-0000175,45,4,Marmara,5.8
+CUS-0000176,18,0,Aegean,1.3
+CUS-0000177,49,0,Marmara,8.1
+CUS-0000178,40,10,Black Sea,10.4
+CUS-0000179,35,17,Black Sea,5.0
+CUS-0000180,32,14,Marmara,2.7
+CUS-0000181,33,15,Aegean,1.9
+CUS-0000182,60,9,Marmara,5.1
+CUS-0000183,60,19,Marmara,8.0
+CUS-0000184,32,0,Marmara,8.3
+CUS-0000185,46,12,Marmara,2.0
+CUS-0000186,34,13,Central Anatolia,7.2
+CUS-0000187,60,0,Aegean,1.7
+CUS-0000188,33,15,Mediterranean,0.3
+CUS-0000189,44,18,Black Sea,2.1
+CUS-0000190,35,17,Central Anatolia,1.0
+CUS-0000191,66,12,Marmara,6.3
+CUS-0000192,47,11,Marmara,2.1
+CUS-0000193,30,12,Mediterranean,1.1
+CUS-0000194,50,6,Mediterranean,3.9
+CUS-0000195,32,0,Southeastern Anatolia,5.3
+CUS-0000196,18,0,Marmara,5.7
+CUS-0000197,27,9,Black Sea,1.4
+CUS-0000198,31,9,Central Anatolia,4.4
+CUS-0000199,27,9,Marmara,1.8
+CUS-0000200,41,10,Marmara,4.8
+CUS-0000201,27,9,Eastern Anatolia,6.1
+CUS-0000202,39,21,Black Sea,5.2
+CUS-0000203,26,8,Eastern Anatolia,5.4
+CUS-0000204,49,20,Marmara,0.9
+CUS-0000205,48,8,Black Sea,1.4
+CUS-0000206,32,5,Marmara,4.4
+CUS-0000207,48,7,Eastern Anatolia,1.4
+CUS-0000208,57,14,Southeastern Anatolia,4.7
+CUS-0000209,64,25,Mediterranean,1.4
+CUS-0000210,42,0,Aegean,1.6
+CUS-0000211,46,14,Black Sea,2.7
+CUS-0000212,29,11,Black Sea,3.7
+CUS-0000213,57,15,Black Sea,7.2
+CUS-0000214,46,13,Aegean,7.1
+CUS-0000215,54,7,Marmara,1.9
+CUS-0000216,39,14,Marmara,3.2
+CUS-0000217,47,16,Aegean,2.9
+CUS-0000218,20,2,Marmara,3.3
+CUS-0000219,45,17,Marmara,0.6
+CUS-0000220,37,16,Marmara,1.5
+CUS-0000221,38,20,Mediterranean,1.2
+CUS-0000222,43,8,Central Anatolia,7.7
+CUS-0000223,51,25,Aegean,4.4
+CUS-0000224,26,6,Marmara,2.7
+CUS-0000225,46,3,Southeastern Anatolia,2.2
+CUS-0000226,40,22,Marmara,6.9
+CUS-0000227,42,24,Eastern Anatolia,3.0
+CUS-0000228,34,12,Marmara,1.7
+CUS-0000229,31,3,Mediterranean,6.3
+CUS-0000230,18,0,Marmara,12.8
+CUS-0000231,34,16,Southeastern Anatolia,3.6
+CUS-0000232,44,0,Aegean,1.3
+CUS-0000233,47,5,Southeastern Anatolia,3.5
+CUS-0000234,30,12,Aegean,3.4
+CUS-0000235,20,0,Marmara,0.8
+CUS-0000236,42,16,Marmara,3.4
+CUS-0000237,51,27,Marmara,7.1
+CUS-0000238,34,8,Marmara,7.8
+CUS-0000239,29,10,Mediterranean,7.0
+CUS-0000240,31,13,Marmara,3.8
+CUS-0000241,43,9,Aegean,7.4
+CUS-0000242,26,8,Southeastern Anatolia,1.0
+CUS-0000243,40,15,Marmara,4.1
+CUS-0000244,55,9,Black Sea,4.1
+CUS-0000245,53,12,Marmara,2.9
+CUS-0000246,49,18,Aegean,8.2
+CUS-0000247,46,8,Central Anatolia,5.1
+CUS-0000248,44,21,Central Anatolia,5.5
+CUS-0000249,30,12,Central Anatolia,4.6
+CUS-0000250,39,11,Mediterranean,0.3

@@ -1,0 +1,11 @@
+{
+  "claim_count": 8542,
+  "alert_count": 439,
+  "alert_rate": 0.051393,
+  "score_threshold": 29.0,
+  "synthetic_truth_rate": 0.036994,
+  "precision_at_alert_rate": 0.14123,
+  "recall_at_alert_rate": 0.196203,
+  "precision_lift_vs_random": 3.817681,
+  "automated_claim_denials": 0
+}

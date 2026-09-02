@@ -1,0 +1,19 @@
+{
+  "name": "Motor Insurance Executive",
+  "dataColors": ["#0B3A53", "#147D92", "#27A6A1", "#E9A23B", "#C5524A", "#6F7D89", "#8E6BBE", "#66A45A"],
+  "background": "#F5F7F9",
+  "foreground": "#18242C",
+  "tableAccent": "#147D92",
+  "good": "#2E7D62",
+  "neutral": "#E9A23B",
+  "bad": "#C5524A",
+  "maximum": "#0B3A53",
+  "center": "#F0C36A",
+  "minimum": "#C5524A",
+  "textClasses": {
+    "title": {"fontFace": "Segoe UI Semibold", "fontSize": 14, "color": "#18242C"},
+    "header": {"fontFace": "Segoe UI Semibold", "fontSize": 11, "color": "#18242C"},
+    "label": {"fontFace": "Segoe UI", "fontSize": 10, "color": "#45545E"},
+    "callout": {"fontFace": "Segoe UI Semibold", "fontSize": 26, "color": "#0B3A53"}
+  }
+}

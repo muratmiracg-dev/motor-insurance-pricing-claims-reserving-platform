@@ -1,0 +1,2 @@
+policy_count,exposure_years,claim_count,open_claim_count,closed_claim_count,written_premium,earned_premium,paid_claims,case_reserve,incurred_claims,ultimate_claims_synthetic_truth,claim_frequency,average_incurred_severity,loss_ratio,expense_and_commission_ratio,combined_ratio,open_claim_rate,valuation_date
+60000,51365.6,8542,1573,6969,1523426467.02,1230160546.03,725753833.13,162808036.18,888561869.31,896209884.8,0.166298,104022.7,0.722314,0.308452,1.030766,0.184149,2025-12-31

@@ -1,0 +1,200 @@
+-- Governed measure layer. Display folders are shown in comments.
+-- Table names must match powerbi/model/model_contract.csv.
+
+-- [01 Portfolio]
+Policy Count :=
+DISTINCTCOUNT ( PricingScore[policy_id] )
+
+Exposure Years :=
+SUM ( PricingScore[exposure_years] )
+
+Written Premium :=
+SUM ( PricingScore[annual_written_premium] )
+
+Earned Premium :=
+SUM ( PricingScore[earned_premium] )
+
+Claim Count :=
+SUM ( PricingScore[claim_count] )
+
+Ultimate Claims :=
+SUM ( PricingScore[ultimate_claims] )
+
+Claim Frequency :=
+DIVIDE ( [Claim Count], [Exposure Years] )
+
+Average Ultimate Severity :=
+DIVIDE ( [Ultimate Claims], [Claim Count] )
+
+Pure Loss Cost :=
+DIVIDE ( [Ultimate Claims], [Exposure Years] )
+
+Loss Ratio :=
+DIVIDE ( [Ultimate Claims], [Earned Premium] )
+
+Expense and Commission Ratio :=
+AVERAGE ( PortfolioKPI[expense_and_commission_ratio] )
+
+Combined Ratio :=
+[Loss Ratio] + [Expense and Commission Ratio]
+
+-- [02 Pricing]
+Predicted Claim Count :=
+SUMX ( PricingScore, PricingScore[predicted_annual_frequency] * PricingScore[exposure_years] )
+
+Predicted Ultimate Claims :=
+SUMX ( PricingScore, PricingScore[predicted_pure_premium] * PricingScore[exposure_years] )
+
+Indicated Technical Premium :=
+SUM ( PricingScore[indicated_technical_premium] )
+
+Pricing Adequacy Index :=
+DIVIDE ( [Written Premium], [Indicated Technical Premium] )
+
+Premium Gap :=
+[Indicated Technical Premium] - [Written Premium]
+
+Increase Review Policy Count :=
+CALCULATE ( [Policy Count], PricingScore[pricing_action] = "Review increase" )
+
+Increase Review Share :=
+DIVIDE ( [Increase Review Policy Count], [Policy Count] )
+
+OOT Frequency Calibration :=
+DIVIDE (
+    CALCULATE ( [Claim Count], PricingScore[dataset_split] = "Out-of-time test" ),
+    CALCULATE ( [Predicted Claim Count], PricingScore[dataset_split] = "Out-of-time test" )
+)
+
+OOT Pure Premium Calibration :=
+DIVIDE (
+    CALCULATE ( [Ultimate Claims], PricingScore[dataset_split] = "Out-of-time test" ),
+    CALCULATE ( [Predicted Ultimate Claims], PricingScore[dataset_split] = "Out-of-time test" )
+)
+
+Selected Rate Change :=
+SELECTEDVALUE ( RateScenario[Rate Change], 0 )
+
+Scenario Written Premium :=
+[Written Premium] * ( 1 + [Selected Rate Change] )
+
+Scenario Premium Delta :=
+[Scenario Written Premium] - [Written Premium]
+
+Scenario Loss Ratio :=
+DIVIDE ( [Ultimate Claims], [Scenario Written Premium] )
+
+Scenario Combined Ratio :=
+[Scenario Loss Ratio] + [Expense and Commission Ratio]
+
+-- Create disconnected parameter table:
+-- RateScenario = GENERATESERIES ( -0.10, 0.25, 0.01 )
+-- Rename RateScenario[Value] to RateScenario[Rate Change].
+
+-- [03 Claims Operations]
+Operational Claim Count :=
+DISTINCTCOUNT ( ClaimTriage[claim_id] )
+
+Paid Claims :=
+SUM ( ClaimTriage[paid_to_date] )
+
+Case Reserve :=
+SUM ( ClaimTriage[case_reserve] )
+
+Incurred Claims :=
+SUM ( ClaimTriage[incurred_amount] )
+
+Open Claim Count :=
+CALCULATE ( [Operational Claim Count], ClaimTriage[claim_status] = "Open" )
+
+Closed Claim Count :=
+CALCULATE ( [Operational Claim Count], ClaimTriage[claim_status] = "Closed" )
+
+Open Claim Rate :=
+DIVIDE ( [Open Claim Count], [Operational Claim Count] )
+
+Average Report Delay Days :=
+AVERAGE ( ClaimTriage[report_delay_days] )
+
+Average Open Case Reserve :=
+DIVIDE ( CALCULATE ( [Case Reserve], ClaimTriage[claim_status] = "Open" ), [Open Claim Count] )
+
+-- [04 Reserving]
+Latest Paid :=
+SUM ( ReserveQuarter[latest_paid] )
+
+Chain Ladder Ultimate :=
+SUM ( ReserveQuarter[chain_ladder_ultimate] )
+
+Chain Ladder IBNR :=
+SUM ( ReserveQuarter[chain_ladder_ibnr] )
+
+Bornhuetter Ferguson Ultimate :=
+SUM ( ReserveQuarter[bf_ultimate] )
+
+Bornhuetter Ferguson IBNR :=
+SUM ( ReserveQuarter[bf_ibnr] )
+
+Reserve Method Gap :=
+[Chain Ladder IBNR] - [Bornhuetter Ferguson IBNR]
+
+CL Ultimate Error % :=
+DIVIDE (
+    [Chain Ladder Ultimate] - SUM ( ReserveQuarter[synthetic_true_ultimate] ),
+    SUM ( ReserveQuarter[synthetic_true_ultimate] )
+)
+
+BF Ultimate Error % :=
+DIVIDE (
+    [Bornhuetter Ferguson Ultimate] - SUM ( ReserveQuarter[synthetic_true_ultimate] ),
+    SUM ( ReserveQuarter[synthetic_true_ultimate] )
+)
+
+-- [05 Human Review Governance]
+Review Queue Count :=
+CALCULATE ( [Operational Claim Count], ClaimTriage[review_recommended] = TRUE () )
+
+Review Queue Incurred :=
+CALCULATE ( [Incurred Claims], ClaimTriage[review_recommended] = TRUE () )
+
+Alert Rate :=
+DIVIDE ( [Review Queue Count], [Operational Claim Count] )
+
+Review Precision :=
+CALCULATE (
+    MAX ( ValidationKPI[value] ),
+    ValidationKPI[module] = "fraud_triage",
+    ValidationKPI[metric] = "precision_at_alert_rate"
+)
+
+Review Lift :=
+CALCULATE (
+    MAX ( ValidationKPI[value] ),
+    ValidationKPI[module] = "fraud_triage",
+    ValidationKPI[metric] = "precision_lift_vs_random"
+)
+
+Automated Claim Denials :=
+CALCULATE (
+    MAX ( ValidationKPI[value] ),
+    ValidationKPI[module] = "fraud_triage",
+    ValidationKPI[metric] = "automated_claim_denials"
+)
+
+Governance Status :=
+IF ( [Automated Claim Denials] = 0, "PASS — human review only", "FAIL — investigate control breach" )
+
+-- [06 Reconciliation]
+Earned Premium Reconciliation Delta :=
+[Earned Premium] - MAX ( PortfolioKPI[earned_premium] )
+
+Claim Count Reconciliation Delta :=
+[Operational Claim Count] - MAX ( PortfolioKPI[claim_count] )
+
+Reconciliation Status :=
+IF (
+    ABS ( [Earned Premium Reconciliation Delta] ) < 0.01
+        && [Claim Count Reconciliation Delta] = 0,
+    "PASS",
+    "FAIL"
+)

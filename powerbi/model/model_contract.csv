@@ -1,0 +1,11 @@
+table,grain,primary_key,source,storage,purpose
+SegmentPerformance,one row per dimension and segment,dimension+segment,data/segment_performance.csv,versioned,Executive and driver views
+PricingScore,one row per policy,policy_id,data/pricing_scores.csv,generated,Pricing adequacy and scenarios
+ReserveQuarter,one row per accident quarter,accident_quarter,data/reserve_quarter.csv,versioned,Reserve method comparison
+DevelopmentFactor,one row per development transition,from_development_quarter,data/development_factors.csv,versioned,Reserve tail behavior
+PaidTriangle,one row per accident/development quarter,accident_quarter+development_quarter,data/paid_triangle_long.csv,versioned,Reserve heatmap
+ClaimTriage,one row per claim,claim_id,data/claim_triage.csv,generated,Claims operations and human review
+FrequencyCoefficient,one row per model feature,model+feature,data/frequency_coefficients.csv,versioned,Frequency explanation
+SeverityCoefficient,one row per model feature,model+feature,data/severity_coefficients.csv,versioned,Severity explanation
+PortfolioKPI,one portfolio snapshot,valuation_date,data/portfolio_kpis.csv,versioned,Executive KPI reconciliation
+ValidationKPI,one metric per module,module+metric,data/validation_kpis.csv,versioned,Model governance evidence

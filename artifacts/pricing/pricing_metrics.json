@@ -1,0 +1,14 @@
+{
+  "development_policy_count": 41126,
+  "oot_policy_count": 18874,
+  "frequency_oot_mean_poisson_deviance": 0.756797,
+  "severity_oot_mean_gamma_deviance": 1.051085,
+  "oot_actual_frequency": 0.161866,
+  "oot_predicted_frequency": 0.164885,
+  "oot_frequency_calibration_ratio": 0.981695,
+  "oot_actual_ultimate_claims": 214315680.59,
+  "oot_predicted_ultimate_claims": 247477885.74,
+  "oot_pure_premium_calibration_ratio": 0.865999,
+  "underpriced_policy_share": 0.335965,
+  "adequate_band_policy_share": 0.354138
+}
