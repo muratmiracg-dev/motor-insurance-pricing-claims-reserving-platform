@@ -30,9 +30,40 @@ def build_incremental_triangle(
     valuation_date: str | pd.Timestamp,
 ) -> pd.DataFrame:
     valuation = pd.Timestamp(valuation_date)
+    required_claim_columns = {"claim_id", "claim_date"}
+    missing_claim_columns = sorted(required_claim_columns - set(claims.columns))
+    if missing_claim_columns:
+        raise ValueError(
+            "claims is missing required columns: " + ", ".join(missing_claim_columns)
+        )
+
+    required_payment_columns = {"claim_id", "payment_date", "payment_amount"}
+    missing_payment_columns = sorted(required_payment_columns - set(payments.columns))
+    if missing_payment_columns:
+        raise ValueError(
+            "payments is missing required columns: " + ", ".join(missing_payment_columns)
+        )
+
+    duplicate_claim_ids = (
+        claims.loc[claims["claim_id"].duplicated(keep=False), "claim_id"]
+        .drop_duplicates()
+        .astype(str)
+        .sort_values()
+        .tolist()
+    )
+    if duplicate_claim_ids:
+        raise ValueError(
+            "claims contains duplicate claim_id values: " + ", ".join(duplicate_claim_ids)
+        )
+
     valuation_ordinal = valuation.year * 4 + valuation.quarter - 1
     claim_dates = claims[["claim_id", "claim_date"]].copy()
-    claim_dates["claim_date"] = pd.to_datetime(claim_dates["claim_date"])
+    claim_dates["claim_date"] = pd.to_datetime(claim_dates["claim_date"], errors="coerce")
+    if claim_dates["claim_date"].isna().any():
+        raise ValueError("claim_date must contain only valid dates")
+    if (claim_dates["claim_date"] > valuation).any():
+        raise ValueError("claim_date cannot be after the valuation date")
+
     claim_dates["accident_ordinal"] = _quarter_ordinal(claim_dates["claim_date"])
     accident_ordinals = np.arange(claim_dates["accident_ordinal"].min(), valuation_ordinal + 1)
     max_development = valuation_ordinal - int(accident_ordinals.min())
@@ -49,7 +80,29 @@ def build_incremental_triangle(
 
     if not payments.empty:
         merged = payments.merge(claim_dates, on="claim_id", how="left", validate="many_to_one")
-        merged["payment_date"] = pd.to_datetime(merged["payment_date"])
+        orphan_claim_ids = (
+            merged.loc[merged["claim_date"].isna(), "claim_id"]
+            .drop_duplicates()
+            .astype(str)
+            .sort_values()
+            .tolist()
+        )
+        if orphan_claim_ids:
+            raise ValueError(
+                "payments references unknown claim_id values: " + ", ".join(orphan_claim_ids)
+            )
+
+        merged["payment_date"] = pd.to_datetime(merged["payment_date"], errors="coerce")
+        if merged["payment_date"].isna().any():
+            raise ValueError("payment_date must contain only valid dates")
+        if (merged["payment_date"] < merged["claim_date"]).any():
+            raise ValueError("payment_date cannot be before claim_date")
+
+        payment_amounts = pd.to_numeric(merged["payment_amount"], errors="coerce")
+        if not np.isfinite(payment_amounts).all() or (payment_amounts < 0).any():
+            raise ValueError("payment_amount must contain only finite non-negative values")
+        merged["payment_amount"] = payment_amounts
+
         merged = merged.loc[merged["payment_date"] <= valuation].copy()
         merged["payment_ordinal"] = _quarter_ordinal(merged["payment_date"])
         merged["development_quarter"] = merged["payment_ordinal"] - merged["accident_ordinal"]

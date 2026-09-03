@@ -5,6 +5,7 @@ from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 from motor_insurance.config import load_config
 from motor_insurance.data_generation import generate_portfolio
@@ -13,8 +14,46 @@ from motor_insurance.metrics import build_analysis_frame, compute_portfolio_kpis
 from motor_insurance.pricing import fit_pricing_models
 from motor_insurance.reserving import build_incremental_triangle, chain_ladder
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+class ReservingInputControlTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.claims = pd.DataFrame(
+            {"claim_id": ["CLM-001"], "claim_date": ["2025-01-15"]}
+        )
+        self.payments = pd.DataFrame(
+            {
+                "claim_id": ["CLM-001"],
+                "payment_date": ["2025-01-20"],
+                "payment_amount": [1_000.0],
+            }
+        )
+
+    def test_rejects_payments_for_unknown_claims(self) -> None:
+        payments = self.payments.assign(claim_id="CLM-999")
+
+        with self.assertRaisesRegex(
+            ValueError, "payments references unknown claim_id values: CLM-999"
+        ):
+            build_incremental_triangle(self.claims, payments, "2025-03-31")
+
+    def test_rejects_payments_before_claim_date(self) -> None:
+        payments = self.payments.assign(payment_date="2025-01-14")
+
+        with self.assertRaisesRegex(ValueError, "payment_date cannot be before claim_date"):
+            build_incremental_triangle(self.claims, payments, "2025-03-31")
+
+    def test_rejects_non_finite_or_negative_payment_amounts(self) -> None:
+        for invalid_amount in (np.inf, np.nan, -1.0):
+            with self.subTest(payment_amount=invalid_amount):
+                payments = self.payments.assign(payment_amount=invalid_amount)
+
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "payment_amount must contain only finite non-negative values",
+                ):
+                    build_incremental_triangle(self.claims, payments, "2025-03-31")
 
 
 class PipelineComponentTests(unittest.TestCase):
