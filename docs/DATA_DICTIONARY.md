@@ -70,6 +70,14 @@
 | `payment_amount` | Paid indemnity in TRY |
 | `payment_type` | Current version uses indemnity payments |
 
+### Reserving input controls
+
+Before a paid-loss triangle is built, every payment must reference exactly one
+unique claim, payment dates must be valid and no earlier than the related claim
+date, and payment amounts must be finite and non-negative. Claims dated after the
+valuation date are rejected. These controls fail fast so malformed records cannot
+silently distort development factors or reserve indications.
+
 ## Derived analytical outputs
 
 | Dataset | Grain | Purpose |
@@ -79,4 +87,3 @@
 | `reserve_by_accident_quarter` | Accident quarter | Paid, ultimate, IBNR, and backtest |
 | `claim_triage_scores` | Claim | Review score, priority, and reason codes |
 | `segment_performance` | Dimension member | Premium, loss, frequency, severity, loss ratio |
-
