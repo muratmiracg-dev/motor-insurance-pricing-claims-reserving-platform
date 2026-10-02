@@ -136,10 +136,10 @@ def finite_json_values(payload: dict[str, Any]) -> dict[str, Any]:
     """Replace non-finite floats before JSON serialization."""
     cleaned: dict[str, Any] = {}
     for key, value in payload.items():
+        if isinstance(value, np.generic):
+            value = value.item()
         if isinstance(value, float) and not math.isfinite(value):
             cleaned[key] = None
-        elif isinstance(value, np.generic):
-            cleaned[key] = value.item()
         else:
             cleaned[key] = value
     return cleaned
