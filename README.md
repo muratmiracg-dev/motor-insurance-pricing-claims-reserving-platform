@@ -234,3 +234,7 @@ SEDDK's [2026/27 insurance-fraud committee circular](https://www.seddk.gov.tr/Up
 
 Murat Miraç Gedik — Statistics, banking and insurance analytics, risk analytics,
 and business intelligence.
+
+### Analytical input and export controls
+
+Portfolio KPI JSON export converts NumPy scalars to Python scalars before checking finiteness. Undefined or infinite floating-point metrics become JSON null; finite values and integer counts retain their values. This permits strict JSON serialization with allow_nan=False.

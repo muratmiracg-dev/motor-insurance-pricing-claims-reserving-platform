@@ -4,7 +4,6 @@ import argparse
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
 
 from .config import ProjectConfig, load_config
 from .data_generation import generate_portfolio, save_datasets, with_policy_count
