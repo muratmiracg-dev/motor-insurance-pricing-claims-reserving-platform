@@ -20,6 +20,19 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
     without authorized human investigation and documented evidence.
     """
 
+    if (
+        isinstance(alert_rate, (bool, np.bool_))
+        or not np.isfinite(alert_rate)
+        or not 0 < alert_rate <= 1
+    ):
+        raise ValueError("alert_rate must be a finite value in (0, 1]")
+    if claims.empty:
+        raise ValueError("claims must contain at least one record")
+    for column in ("garage_watchlist_signal", "fraud_synthetic_truth"):
+        values = claims[column]
+        if not values.map(lambda value: isinstance(value, (bool, np.bool_))).all():
+            raise ValueError(f"{column} must contain only boolean values")
+
     frame = claims.copy()
     customer_claim_count = frame.groupby("customer_id")["claim_id"].transform("count")
     high_severity_threshold = float(frame["incurred_amount"].quantile(0.95))
@@ -31,7 +44,7 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
     repeated_customer = customer_claim_count >= 2
     high_severity = frame["incurred_amount"] >= high_severity_threshold
     very_high_severity = frame["incurred_amount"] >= very_high_severity_threshold
-    watchlist_garage = frame["garage_watchlist_signal"].astype(bool)
+    watchlist_garage = frame["garage_watchlist_signal"]
 
     score = (
         short_tenure.astype(int) * 24
@@ -43,7 +56,9 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
         + watchlist_garage.astype(int) * 22
     )
     frame["triage_score"] = np.clip(score, 0, 100)
-    threshold = float(frame["triage_score"].quantile(max(0.0, 1.0 - alert_rate), interpolation="lower"))
+    threshold = float(
+        frame["triage_score"].quantile(max(0.0, 1.0 - alert_rate), interpolation="lower")
+    )
     frame["review_recommended"] = frame["triage_score"] >= threshold
     frame["review_priority"] = pd.cut(
         frame["triage_score"],
@@ -71,13 +86,13 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
     frame["decision_boundary"] = "Human review required; no automated adverse action"
 
     alerted = frame["review_recommended"]
-    truth = frame["fraud_synthetic_truth"].astype(bool)
+    truth = frame["fraud_synthetic_truth"]
     alert_count = int(alerted.sum())
     precision = float(truth.loc[alerted].mean()) if alert_count else 0.0
     recall = float((alerted & truth).sum() / max(int(truth.sum()), 1))
     baseline_rate = float(truth.mean())
     metrics: dict[str, Any] = {
-        "claim_count": int(len(frame)),
+        "claim_count": len(frame),
         "alert_count": alert_count,
         "alert_rate": round(float(alerted.mean()), 6),
         "score_threshold": threshold,

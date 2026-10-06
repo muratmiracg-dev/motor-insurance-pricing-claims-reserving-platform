@@ -57,7 +57,7 @@
 | `case_reserve` | Synthetic case reserve at valuation |
 | `incurred_amount` | Paid plus case reserve |
 | `ultimate_incurred_synthetic_truth` | Hidden generator truth for backtesting only |
-| `fraud_synthetic_truth` | Hidden synthetic evaluation label only |
+| `fraud_synthetic_truth` | Strict boolean synthetic evaluation label only; non-boolean values are rejected |
 
 ## `claim_payments`
 
