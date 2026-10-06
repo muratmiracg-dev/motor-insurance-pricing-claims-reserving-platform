@@ -19,9 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 class ReservingInputControlTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.claims = pd.DataFrame(
-            {"claim_id": ["CLM-001"], "claim_date": ["2025-01-15"]}
-        )
+        self.claims = pd.DataFrame({"claim_id": ["CLM-001"], "claim_date": ["2025-01-15"]})
         self.payments = pd.DataFrame(
             {
                 "claim_id": ["CLM-001"],
@@ -119,8 +117,27 @@ class PipelineComponentTests(unittest.TestCase):
     def test_fraud_triage_has_human_control_boundary(self) -> None:
         result = score_claims_for_review(self.datasets["claims"], self.config.fraud_alert_rate)
         self.assertEqual(result.metrics["automated_claim_denials"], 0)
-        self.assertTrue(result.scored_claims["decision_boundary"].str.contains("Human review").all())
+        self.assertTrue(
+            result.scored_claims["decision_boundary"].str.contains("Human review").all()
+        )
         self.assertTrue(result.scored_claims["triage_score"].between(0, 100).all())
+
+    def test_fraud_triage_rejects_ambiguous_boolean_signals(self) -> None:
+        claims = self.datasets["claims"].head(3).copy()
+        for column, value in (("garage_watchlist_signal", "False"), ("fraud_synthetic_truth", 0)):
+            invalid = claims.copy()
+            invalid[column] = value
+            with self.subTest(column=column), self.assertRaisesRegex(ValueError, column):
+                score_claims_for_review(invalid)
+
+    def test_fraud_triage_rejects_invalid_alert_rates(self) -> None:
+        claims = self.datasets["claims"].head(3)
+        for alert_rate in (0, -0.1, 1.1, float("nan"), True):
+            with (
+                self.subTest(alert_rate=alert_rate),
+                self.assertRaisesRegex(ValueError, "alert_rate"),
+            ):
+                score_claims_for_review(claims, alert_rate=alert_rate)
 
 
 if __name__ == "__main__":
