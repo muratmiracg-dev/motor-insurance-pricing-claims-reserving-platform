@@ -98,6 +98,23 @@ class PipelineComponentTests(unittest.TestCase):
         self.assertTrue((result.scores["predicted_average_severity"] > 0).all())
         self.assertGreater(result.metrics["oot_policy_count"], 0)
 
+    def test_pricing_rejects_invalid_exposure_and_margin_inputs(self) -> None:
+        for column, value, message in (
+            ("exposure_years", 0.0, "exposure_years"),
+            ("claim_count", 1.5, "claim_count"),
+            ("commission_ratio", 1.0, "commission_ratio"),
+            ("commission_ratio", 1.0 - self.config.expense_ratio, "premium margin"),
+        ):
+            invalid = self.analysis.copy()
+            if column == "claim_count":
+                invalid[column] = invalid[column].astype(float)
+            invalid.loc[invalid.index[0], column] = value
+            with (
+                self.subTest(column=column, value=value),
+                self.assertRaisesRegex(ValueError, message),
+            ):
+                fit_pricing_models(invalid, self.config)
+
     def test_reserving_outputs_are_non_negative(self) -> None:
         triangle = build_incremental_triangle(
             self.datasets["claims"],
