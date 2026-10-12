@@ -92,6 +92,22 @@ class PipelineComponentTests(unittest.TestCase):
         self.assertGreater(metrics["average_incurred_severity"], 0)
         self.assertGreater(metrics["combined_ratio"], metrics["loss_ratio"])
 
+    def test_portfolio_metrics_reject_invalid_financial_inputs(self) -> None:
+        for expense_ratio in (True, -0.1, 1.0, np.nan):
+            with (
+                self.subTest(expense_ratio=expense_ratio),
+                self.assertRaisesRegex(ValueError, "expense_ratio"),
+            ):
+                compute_portfolio_kpis(
+                    self.datasets["policies"], self.datasets["claims"], expense_ratio
+                )
+        with self.assertRaisesRegex(ValueError, "finite numeric"):
+            compute_portfolio_kpis(
+                self.datasets["policies"].assign(earned_premium=np.inf),
+                self.datasets["claims"],
+                self.config.expense_ratio,
+            )
+
     def test_pricing_predictions_are_positive(self) -> None:
         result = fit_pricing_models(self.analysis, self.config)
         self.assertTrue((result.scores["predicted_annual_frequency"] > 0).all())
