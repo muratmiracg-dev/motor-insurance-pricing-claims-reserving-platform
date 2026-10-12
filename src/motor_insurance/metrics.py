@@ -16,6 +16,31 @@ def compute_portfolio_kpis(
     claims: pd.DataFrame,
     expense_ratio: float,
 ) -> dict[str, Any]:
+    if (
+        isinstance(expense_ratio, bool)
+        or not math.isfinite(expense_ratio)
+        or not 0 <= expense_ratio < 1
+    ):
+        raise ValueError("expense_ratio must be a finite value in [0, 1)")
+    policy_values = policies[
+        ["exposure_years", "annual_written_premium", "earned_premium", "commission_ratio"]
+    ].apply(pd.to_numeric, errors="coerce")
+    claim_values = claims[
+        ["paid_to_date", "case_reserve", "incurred_amount", "ultimate_incurred_synthetic_truth"]
+    ].apply(pd.to_numeric, errors="coerce")
+    if (
+        not np.isfinite(policy_values.to_numpy()).all()
+        or not np.isfinite(claim_values.to_numpy()).all()
+    ):
+        raise ValueError("portfolio KPI financial inputs must be finite numeric values")
+    if (
+        policy_values[["exposure_years", "annual_written_premium", "earned_premium"]] < 0
+    ).any().any() or (claim_values < 0).any().any():
+        raise ValueError("portfolio KPI financial inputs must be non-negative")
+    policies = policies.copy()
+    claims = claims.copy()
+    policies[policy_values.columns] = policy_values
+    claims[claim_values.columns] = claim_values
     exposure = float(policies["exposure_years"].sum())
     written_premium = float(policies["annual_written_premium"].sum())
     earned_premium = float(policies["earned_premium"].sum())
@@ -25,7 +50,7 @@ def compute_portfolio_kpis(
     case_reserve = float(claims["case_reserve"].sum())
     incurred = float(claims["incurred_amount"].sum())
     ultimate_truth = float(claims["ultimate_incurred_synthetic_truth"].sum())
-    claim_count = int(len(claims))
+    claim_count = len(claims)
     open_claims = int((claims["claim_status"] == "Open").sum())
     closed_claims = claim_count - open_claims
 
@@ -34,7 +59,7 @@ def compute_portfolio_kpis(
     combined_ratio = loss_ratio + expense_ratio_actual
 
     return {
-        "policy_count": int(len(policies)),
+        "policy_count": len(policies),
         "exposure_years": round(exposure, 2),
         "claim_count": claim_count,
         "open_claim_count": open_claims,
@@ -60,16 +85,13 @@ def build_analysis_frame(
     vehicles: pd.DataFrame,
     claims: pd.DataFrame,
 ) -> pd.DataFrame:
-    claim_agg = (
-        claims.groupby("policy_id", as_index=False)
-        .agg(
-            claim_count=("claim_id", "count"),
-            paid_claims=("paid_to_date", "sum"),
-            case_reserve=("case_reserve", "sum"),
-            incurred_claims=("incurred_amount", "sum"),
-            ultimate_claims=("ultimate_incurred_synthetic_truth", "sum"),
-            open_claim_count=("claim_status", lambda values: int((values == "Open").sum())),
-        )
+    claim_agg = claims.groupby("policy_id", as_index=False).agg(
+        claim_count=("claim_id", "count"),
+        paid_claims=("paid_to_date", "sum"),
+        case_reserve=("case_reserve", "sum"),
+        incurred_claims=("incurred_amount", "sum"),
+        ultimate_claims=("ultimate_incurred_synthetic_truth", "sum"),
+        open_claim_count=("claim_status", lambda values: int((values == "Open").sum())),
     )
     frame = (
         policies.merge(customers, on="customer_id", how="left", validate="one_to_one")
@@ -97,7 +119,9 @@ def build_analysis_frame(
         frame["ultimate_claims"] / frame["claim_count"],
         np.nan,
     )
-    frame["incurred_loss_ratio"] = frame["incurred_claims"] / frame["earned_premium"].clip(lower=1.0)
+    frame["incurred_loss_ratio"] = frame["incurred_claims"] / frame["earned_premium"].clip(
+        lower=1.0
+    )
     return frame
 
 
@@ -118,13 +142,17 @@ def segment_performance(analysis_frame: pd.DataFrame, dimensions: list[str]) -> 
             .rename(columns={dimension: "segment"})
         )
         grouped.insert(0, "dimension", dimension)
-        grouped["claim_frequency"] = grouped["claim_count"] / grouped["exposure_years"].clip(lower=1e-6)
+        grouped["claim_frequency"] = grouped["claim_count"] / grouped["exposure_years"].clip(
+            lower=1e-6
+        )
         grouped["average_severity"] = np.where(
             grouped["claim_count"] > 0,
             grouped["incurred_claims"] / grouped["claim_count"],
             np.nan,
         )
-        grouped["loss_ratio"] = grouped["incurred_claims"] / grouped["earned_premium"].clip(lower=1.0)
+        grouped["loss_ratio"] = grouped["incurred_claims"] / grouped["earned_premium"].clip(
+            lower=1.0
+        )
         records.append(grouped)
     output = pd.concat(records, ignore_index=True)
     numeric_columns = output.select_dtypes(include=["number"]).columns
