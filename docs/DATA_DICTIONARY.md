@@ -59,6 +59,9 @@
 | `ultimate_incurred_synthetic_truth` | Hidden generator truth for backtesting only |
 | `fraud_synthetic_truth` | Strict boolean synthetic evaluation label only; non-boolean values are rejected |
 
+Fraud triage also fails closed when claim/customer identifiers are blank, monetary or duration
+inputs are negative or non-finite, or `loss_hour` falls outside 0–23.
+
 ## `claim_payments`
 
 | Field | Meaning |
