@@ -172,6 +172,23 @@ class PipelineComponentTests(unittest.TestCase):
             ):
                 score_claims_for_review(claims, alert_rate=alert_rate)
 
+    def test_fraud_triage_rejects_malformed_claim_inputs(self) -> None:
+        claims = self.datasets["claims"].head(3).copy()
+        invalid_cases = (
+            ("incurred_amount", float("inf"), "finite"),
+            ("policy_tenure_days", -1, "cannot be negative"),
+            ("report_delay_days", -1, "cannot be negative"),
+            ("loss_hour", 24, "loss_hour"),
+            ("customer_id", " ", "customer_id"),
+        )
+        for column, value, message in invalid_cases:
+            invalid = claims.copy()
+            invalid.loc[invalid.index[0], column] = value
+            with self.subTest(column=column), self.assertRaisesRegex(ValueError, message):
+                score_claims_for_review(invalid)
+        with self.assertRaisesRegex(ValueError, "missing required"):
+            score_claims_for_review(claims.drop(columns=["claim_id"]))
+
 
 if __name__ == "__main__":
     unittest.main()

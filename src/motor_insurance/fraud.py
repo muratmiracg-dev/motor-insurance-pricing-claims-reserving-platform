@@ -28,6 +28,33 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
         raise ValueError("alert_rate must be a finite value in (0, 1]")
     if claims.empty:
         raise ValueError("claims must contain at least one record")
+    required = {
+        "claim_id",
+        "customer_id",
+        "incurred_amount",
+        "policy_tenure_days",
+        "report_delay_days",
+        "loss_hour",
+        "garage_watchlist_signal",
+        "fraud_synthetic_truth",
+    }
+    missing = sorted(required.difference(claims.columns))
+    if missing:
+        raise ValueError(f"claims are missing required triage columns: {missing}")
+    for column in ("claim_id", "customer_id"):
+        values = claims[column]
+        if values.isna().any() or values.astype(str).str.strip().eq("").any():
+            raise ValueError(f"{column} must contain populated identifiers")
+    numeric = claims[
+        ["incurred_amount", "policy_tenure_days", "report_delay_days", "loss_hour"]
+    ].apply(pd.to_numeric, errors="coerce")
+    if not np.isfinite(numeric.to_numpy(dtype=float)).all():
+        raise ValueError("fraud triage numeric inputs must be finite")
+    if (numeric[["incurred_amount", "policy_tenure_days", "report_delay_days"]] < 0).any().any():
+        raise ValueError("fraud triage monetary and duration inputs cannot be negative")
+    if not numeric["loss_hour"].between(0, 23).all():
+        raise ValueError("loss_hour must be between 0 and 23")
+    claims = claims.assign(**{column: numeric[column] for column in numeric})
     for column in ("garage_watchlist_signal", "fraud_synthetic_truth"):
         values = claims[column]
         if not values.map(lambda value: isinstance(value, (bool, np.bool_))).all():
