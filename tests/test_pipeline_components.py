@@ -147,6 +147,18 @@ class PipelineComponentTests(unittest.TestCase):
         self.assertGreaterEqual(result.portfolio_summary["bornhuetter_ferguson_ibnr"], 0)
         self.assertTrue((result.development_factors["age_to_age_factor"] >= 1).all())
 
+    def test_reserving_rejects_invalid_expected_loss_ratios(self) -> None:
+        triangle = build_incremental_triangle(
+            self.datasets["claims"], self.datasets["claim_payments"], self.config.valuation_date
+        )
+        for ratio in (True, "0.7", -0.01, 1.01, np.nan, np.inf):
+            with self.subTest(expected_loss_ratio=ratio), self.assertRaisesRegex(
+                ValueError, "expected_loss_ratio"
+            ):
+                chain_ladder(
+                    triangle, self.datasets["policies"], self.datasets["claims"], ratio
+                )
+
     def test_fraud_triage_has_human_control_boundary(self) -> None:
         result = score_claims_for_review(self.datasets["claims"], self.config.fraud_alert_rate)
         self.assertEqual(result.metrics["automated_claim_denials"], 0)
