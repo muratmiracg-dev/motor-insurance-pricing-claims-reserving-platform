@@ -214,6 +214,8 @@ Desktop owns and validates generated PBIP/PBIR/TMDL metadata.
 
 ## Governance controls
 
+Expected-loss assumptions used by Bornhuetter-Ferguson reserving are fail-closed: only finite numeric ratios from 0 to 1 are accepted, preventing malformed assumptions from producing misleading reserve recommendations.
+
 - No protected attributes are generated or modeled.
 - Synthetic truth is isolated as evaluation evidence and is not a real-world feature.
 - Triage can prioritize investigation but cannot reject or reduce a claim.

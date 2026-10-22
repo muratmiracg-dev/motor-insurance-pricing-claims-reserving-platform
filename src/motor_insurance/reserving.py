@@ -145,6 +145,13 @@ def chain_ladder(
     claims: pd.DataFrame,
     expected_loss_ratio: float,
 ) -> ReservingResult:
+    if (
+        isinstance(expected_loss_ratio, (bool, np.bool_))
+        or not isinstance(expected_loss_ratio, (int, float, np.integer, np.floating))
+        or not np.isfinite(expected_loss_ratio)
+        or not 0 <= expected_loss_ratio <= 1
+    ):
+        raise ValueError("expected_loss_ratio must be a finite numeric value between 0 and 1")
     cumulative = _cumulative_triangle(incremental)
     factors = _development_factors(cumulative)
     factor_table = pd.DataFrame(
