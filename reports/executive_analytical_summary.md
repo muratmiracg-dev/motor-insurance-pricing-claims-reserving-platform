@@ -22,9 +22,9 @@
 ## Reserving
 
 - Chain Ladder IBNR: TRY 170,579,807.40
-- Bornhuetter-Ferguson IBNR: TRY 53,275,056.56
+- Bornhuetter-Ferguson IBNR: TRY 159,997,186.77
 - Chain Ladder total error vs synthetic truth: 0.01%
-- Bornhuetter-Ferguson total error vs synthetic truth: -13.08%
+- Bornhuetter-Ferguson total error vs synthetic truth: -1.17%
 
 ## Human-controlled fraud triage
 

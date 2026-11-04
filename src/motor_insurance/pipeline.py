@@ -70,6 +70,7 @@ def run_pipeline(config: ProjectConfig) -> dict[str, Any]:
         datasets["policies"],
         datasets["claims"],
         expected_loss_ratio=config.expected_loss_ratio,
+        valuation_date=config.valuation_date,
     )
     reserve.incremental_triangle.to_csv(config.artifacts_dir / "reserving" / "incremental_paid_triangle.csv")
     reserve.cumulative_triangle.to_csv(config.artifacts_dir / "reserving" / "cumulative_paid_triangle.csv")

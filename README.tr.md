@@ -46,7 +46,7 @@ Sonuçlar `20260902` tohumu ve `31.12.2025` değerleme tarihiyle yeniden üretil
 | OOT saf prim kalibrasyonu | 0,866 |
 | Prim artışı incelemesine giren poliçe | %33,60 |
 | Chain Ladder IBNR | 170,58 milyon TL |
-| Bornhuetter-Ferguson IBNR | 53,28 milyon TL |
+| Bornhuetter-Ferguson IBNR | 160,00 milyon TL |
 | İnsan inceleme kuyruğu | 439 hasar / %5,14 |
 | İnceleme hassasiyeti / rastgeleye göre lift | %14,12 / 3,82 kat |
 | Otomatik hasar reddi | 0 |
@@ -54,7 +54,8 @@ Sonuçlar `20260902` tohumu ve `31.12.2025` değerleme tarihiyle yeniden üretil
 Chain Ladder'ın sentetik nihai hasara göre toplam hatası yalnızca `%0,01`'dir.
 Bu sonuç, sabit ve deterministik sentetik gelişim deseninden kaynaklanan bir
 yeniden üretilebilirlik ölçüsüdür; gerçek portföy rezerv doğruluğu iddiası değildir.
-Bornhuetter-Ferguson karşılaştırma modeli nihai hasarı `%13,08` düşük tahmin ederek
+Beklenen loss ratio'yu her kaza çeyreğinde kazanılan prime uygulayan
+Bornhuetter-Ferguson karşılaştırma modeli nihai hasarı `%1,17` düşük tahmin ederek
 beklenen loss ratio varsayımının riskini görünür kılar.
 
 ## Dashboard görsel turu
