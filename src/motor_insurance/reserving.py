@@ -139,11 +139,61 @@ def _development_factors(cumulative: pd.DataFrame) -> np.ndarray:
     return np.asarray(factors, dtype=float)
 
 
+def _earned_premium_by_accident_quarter(
+    policies: pd.DataFrame, valuation: pd.Timestamp
+) -> pd.DataFrame:
+    """Allocate each policy's earned premium to the calendar quarters it was exposed in.
+
+    The reserving triangle is on an accident-quarter basis, so the Bornhuetter-Ferguson
+    a-priori ultimate needs premium earned in each accident quarter. A policy's earned
+    premium is spread evenly over its earned days (policy_start to the earlier of
+    policy_end and the valuation date) and split by calendar-quarter overlap; totals are
+    preserved.
+    """
+    required = {"policy_start", "policy_end", "earned_premium"}
+    missing = sorted(required - set(policies.columns))
+    if missing:
+        raise ValueError("policies is missing required columns: " + ", ".join(missing))
+    start = pd.to_datetime(policies["policy_start"], errors="coerce")
+    end = pd.to_datetime(policies["policy_end"], errors="coerce")
+    if start.isna().any() or end.isna().any():
+        raise ValueError("policy_start and policy_end must contain only valid dates")
+    if (end < start).any():
+        raise ValueError("policy_end cannot be before policy_start")
+    premium = pd.to_numeric(policies["earned_premium"], errors="coerce")
+    if not np.isfinite(premium).all() or (premium < 0).any():
+        raise ValueError("earned_premium must contain only finite non-negative values")
+
+    earned_end = end.where(end <= valuation, valuation)
+    earned_days = (earned_end - start).dt.days + 1
+    # Policies starting after the valuation date have earned nothing yet.
+    active = earned_days > 0
+    daily_premium = (premium / earned_days.where(active, 1)).where(active, 0.0)
+
+    records = []
+    first = start.loc[active].min() if active.any() else valuation
+    for period in pd.period_range(first.to_period("Q"), valuation.to_period("Q"), freq="Q"):
+        quarter_start = period.start_time
+        quarter_end = period.end_time.normalize()
+        overlap = (
+            earned_end.where(earned_end <= quarter_end, quarter_end)
+            - start.where(start >= quarter_start, quarter_start)
+        ).dt.days + 1
+        records.append(
+            {
+                "accident_quarter": str(period),
+                "earned_premium": float((daily_premium * overlap.clip(lower=0)).sum()),
+            }
+        )
+    return pd.DataFrame(records, columns=["accident_quarter", "earned_premium"])
+
+
 def chain_ladder(
     incremental: pd.DataFrame,
     policies: pd.DataFrame,
     claims: pd.DataFrame,
     expected_loss_ratio: float,
+    valuation_date: str | pd.Timestamp | None = None,
 ) -> ReservingResult:
     if (
         isinstance(expected_loss_ratio, (bool, np.bool_))
@@ -186,9 +236,12 @@ def chain_ladder(
         )
     summary = pd.DataFrame(summary_records)
 
-    policy_premium = policies.copy()
-    policy_premium["accident_quarter"] = pd.to_datetime(policy_premium["policy_start"]).dt.to_period("Q").astype(str)
-    premium_by_quarter = policy_premium.groupby("accident_quarter", as_index=False)["earned_premium"].sum()
+    if valuation_date is None:
+        # The triangle's last accident quarter is the valuation quarter.
+        valuation = pd.Period(str(cumulative.index[-1]), freq="Q").end_time.normalize()
+    else:
+        valuation = pd.Timestamp(valuation_date)
+    premium_by_quarter = _earned_premium_by_accident_quarter(policies, valuation)
     summary = summary.merge(premium_by_quarter, on="accident_quarter", how="left")
     summary["earned_premium"] = summary["earned_premium"].fillna(0.0)
     summary["expected_ultimate"] = summary["earned_premium"] * expected_loss_ratio

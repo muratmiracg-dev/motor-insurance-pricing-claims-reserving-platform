@@ -48,7 +48,7 @@ date `2025-12-31`.
 | OOT pure-premium calibration | 0.866 actual-to-predicted |
 | Policies flagged for indicated increase review | 33.60% |
 | Chain Ladder IBNR | TRY 170.58M |
-| Bornhuetter-Ferguson IBNR | TRY 53.28M |
+| Bornhuetter-Ferguson IBNR | TRY 160.00M |
 | Human-review queue | 439 claims / 5.14% |
 | Triage precision / lift | 14.12% / 3.82x |
 | Automated claim denials | 0 |
@@ -56,8 +56,9 @@ date `2025-12-31`.
 The deterministic generator uses stable claim-development mechanics, so the
 portfolio Chain Ladder error against synthetic ultimate losses is unusually low
 at `0.01%`. This is a reproducibility benchmark, not an assertion of real-world
-reserve accuracy. The Bornhuetter-Ferguson challenger underestimates synthetic
-ultimate losses by `13.08%`, making the assumption risk visible instead of hiding it.
+reserve accuracy. The Bornhuetter-Ferguson challenger, which applies the expected
+loss ratio to premium earned in each accident quarter, underestimates synthetic
+ultimate losses by `1.17%`, keeping the expected-loss-ratio assumption risk visible.
 
 ## Visual dashboard tour
 

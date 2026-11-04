@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+- Fixed the Bornhuetter-Ferguson premium basis. The a-priori ultimate for each accident quarter
+  used the full earned premium of policies that *started* in that quarter, while the triangle is
+  on an accident-quarter basis and annual policies earn premium over four quarters. Implied loss
+  ratios therefore ranged from 0.08 to 5.17 by quarter, and BF understated portfolio ultimate
+  losses by 13.08% (68.9% in the valuation quarter). Earned premium is now allocated to calendar
+  quarters by days of exposure up to the valuation date. BF IBNR moves from TRY 53.28M to
+  TRY 160.00M, and the total error vs synthetic truth from -13.08% to -1.17%. Chain Ladder is
+  unchanged.
+
 ## 0.2.0 — 2026-09-02
 
 - Added a six-page, decision-led Power BI dashboard specification.
