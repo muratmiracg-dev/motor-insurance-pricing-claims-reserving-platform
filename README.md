@@ -178,6 +178,11 @@ PYTHONPATH=src python scripts/run_pipeline.py
 PYTHONPATH=src python -m unittest discover -s tests -v
 ```
 
+`requirements.txt` pins the exact library versions that reproduce the committed
+`artifacts/`. CI regenerates them and fails if any number drifts beyond floating-point
+noise (`scripts/compare_artifacts.py`). Newer scikit-learn releases change the severity
+GLM fit, so upgrade the pins deliberately and commit the regenerated artifacts.
+
 For a fast development run:
 
 ```bash

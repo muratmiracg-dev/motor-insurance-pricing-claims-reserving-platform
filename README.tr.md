@@ -97,6 +97,12 @@ PYTHONPATH=src python scripts/run_pipeline.py
 PYTHONPATH=src python -m unittest discover -s tests -v
 ```
 
+`requirements.txt`, depodaki `artifacts/` çıktılarını yeniden üreten kütüphane sürümlerini
+sabitler. CI çıktıları yeniden üretir ve herhangi bir sayı kayan nokta gürültüsünün ötesinde
+değişirse başarısız olur (`scripts/compare_artifacts.py`). Yeni scikit-learn sürümleri
+severity GLM sonuçlarını değiştirdiği için sürümleri bilinçli olarak yükseltin ve yeniden
+üretilen çıktıları commit edin.
+
 Hızlı geliştirme çalıştırması:
 
 ```bash

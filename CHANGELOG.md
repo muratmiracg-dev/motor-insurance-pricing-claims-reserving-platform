@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Pinned `requirements.txt` to the versions that reproduce the committed artifacts. With the
+  previous lower bounds, CI installed scikit-learn 1.9.1, which shifts the Gamma severity GLM
+  (coefficients by ~3e-5, OOT predicted ultimate claims by about TRY 3.6k, calibration ratio
+  0.865999 -> 0.865987).
+- CI now regenerates the pipeline outputs and compares them with the committed `artifacts/`
+  (`scripts/compare_artifacts.py`: numbers within relative/absolute 1e-9, text and structure
+  exact).
 - Fixed the Bornhuetter-Ferguson premium basis. The a-priori ultimate for each accident quarter
   used the full earned premium of policies that *started* in that quarter, while the triangle is
   on an accident-quarter basis and annual policies earn premium over four quarters. Implied loss
