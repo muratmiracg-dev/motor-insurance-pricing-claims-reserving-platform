@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
@@ -30,4 +30,12 @@ jobs:
           cp -r artifacts "$RUNNER_TEMP/committed-artifacts"
           PYTHONPATH=src python scripts/run_pipeline.py
           python scripts/compare_artifacts.py "$RUNNER_TEMP/committed-artifacts"
+      - name: Rebuild the Power BI data mart and compare with the committed copy
+        # powerbi/data/ is derived from artifacts/ by build_powerbi_assets.py; without this
+        # step a pipeline change could leave the dashboard data mart silently stale.
+        # Mockup PNGs are rebuilt too but are not compared (rendering is not byte-stable).
+        run: |
+          cp -r powerbi/data "$RUNNER_TEMP/committed-powerbi-data"
+          python scripts/build_powerbi_assets.py
+          python scripts/compare_artifacts.py "$RUNNER_TEMP/committed-powerbi-data" powerbi/data
 

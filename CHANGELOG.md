@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- CI now also rebuilds the Power BI data mart (`scripts/build_powerbi_assets.py`) and compares
+  `powerbi/data/` with the committed copy using the same tolerances. Previously the mart was
+  never regenerated in CI, so a pipeline change could leave the dashboard data silently stale.
+  Python 3.13 added to the CI matrix (pinned requirements reproduce all outputs on 3.11-3.13).
 - Pinned `requirements.txt` to the versions that reproduce the committed artifacts. With the
   previous lower bounds, CI installed scikit-learn 1.9.1, which shifts the Gamma severity GLM
   (coefficients by ~3e-5, OOT predicted ultimate claims by about TRY 3.6k, calibration ratio
