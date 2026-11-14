@@ -14,10 +14,10 @@
 ## Technical pricing validation
 
 - OOT actual frequency: 16.19%
-- OOT predicted frequency: 16.49%
+- OOT predicted frequency: 16.48%
 - OOT frequency calibration ratio: 0.982
 - OOT pure-premium calibration ratio: 0.866
-- Policies in indicated increase review: 33.60%
+- Policies in indicated increase review: 33.59%
 
 ## Reserving
 

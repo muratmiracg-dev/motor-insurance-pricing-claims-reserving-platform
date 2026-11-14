@@ -114,6 +114,21 @@ class PipelineComponentTests(unittest.TestCase):
         self.assertTrue((result.scores["predicted_average_severity"] > 0).all())
         self.assertGreater(result.metrics["oot_policy_count"], 0)
 
+    def test_pricing_fit_is_converged_and_row_order_invariant(self) -> None:
+        # A loosely converged solver stops at a point that depends on floating-point
+        # summation order, so the published coefficients drifted with the BLAS kernel
+        # of the CI runner. A converged fit must not depend on row order either.
+        first = fit_pricing_models(self.analysis, self.config)
+        shuffled = self.analysis.sample(frac=1.0, random_state=7).reset_index(drop=True)
+        second = fit_pricing_models(shuffled, self.config)
+        for table in ("frequency_coefficients", "severity_coefficients"):
+            left = getattr(first, table).set_index("feature")["log_link_coefficient"]
+            right = getattr(second, table).set_index("feature")["log_link_coefficient"]
+            with self.subTest(table=table):
+                np.testing.assert_allclose(
+                    left.sort_index(), right.sort_index(), rtol=1e-9, atol=1e-10
+                )
+
     def test_pricing_rejects_invalid_exposure_and_margin_inputs(self) -> None:
         for column, value, message in (
             ("exposure_years", 0.0, "exposure_years"),

@@ -46,7 +46,7 @@ date `2025-12-31`.
 | Loss ratio / combined ratio | 72.23% / 103.08% |
 | OOT frequency calibration | 0.982 actual-to-predicted |
 | OOT pure-premium calibration | 0.866 actual-to-predicted |
-| Policies flagged for indicated increase review | 33.60% |
+| Policies flagged for indicated increase review | 33.59% |
 | Chain Ladder IBNR | TRY 170.58M |
 | Bornhuetter-Ferguson IBNR | TRY 160.00M |
 | Human-review queue | 439 claims / 5.14% |

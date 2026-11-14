@@ -122,7 +122,7 @@ def fit_pricing_models(analysis_frame: pd.DataFrame, config: ProjectConfig) -> P
     frequency_model = Pipeline(
         steps=[
             ("preprocess", _preprocessor()),
-            ("model", PoissonRegressor(alpha=config.poisson_alpha, max_iter=600)),
+            ("model", PoissonRegressor(alpha=config.poisson_alpha, solver="newton-cholesky", tol=1e-12, max_iter=600)),
         ]
     )
     frequency_target = frame["claim_count"] / frame["exposure_years"].clip(lower=1e-6)
@@ -141,7 +141,7 @@ def fit_pricing_models(analysis_frame: pd.DataFrame, config: ProjectConfig) -> P
     severity_model = Pipeline(
         steps=[
             ("preprocess", _preprocessor()),
-            ("model", GammaRegressor(alpha=config.gamma_alpha, max_iter=800)),
+            ("model", GammaRegressor(alpha=config.gamma_alpha, solver="newton-cholesky", tol=1e-12, max_iter=800)),
         ]
     )
     severity_model.fit(
