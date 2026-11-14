@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Pricing GLMs now fit with `solver="newton-cholesky", tol=1e-12`. The default L-BFGS stop
+  (`tol=1e-4`) left the Poisson and Gamma fits short of the optimum at a point that depended on
+  floating-point summation order, so the published coefficients and OOT metrics changed with
+  the BLAS kernel of the CI runner (CI failed on some runners with ~1e-5 drift and passed on
+  rerun). Converged fits agree within 1e-9 across OpenBLAS Haswell/SkylakeX/Zen/Sandybridge
+  kernels and Python 3.11-3.13. Regenerated artifacts: OOT pure-premium calibration
+  0.865999 -> 0.866398, increase-review share 33.60% -> 33.59%, frequency calibration
+  0.981695 -> 0.982225.
 - CI now also rebuilds the Power BI data mart (`scripts/build_powerbi_assets.py`) and compares
   `powerbi/data/` with the committed copy using the same tolerances. Previously the mart was
   never regenerated in CI, so a pipeline change could leave the dashboard data silently stale.

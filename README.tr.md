@@ -44,7 +44,7 @@ Sonuçlar `20260902` tohumu ve `31.12.2025` değerleme tarihiyle yeniden üretil
 | Loss ratio / combined ratio | %72,23 / %103,08 |
 | OOT frekans kalibrasyonu | 0,982 |
 | OOT saf prim kalibrasyonu | 0,866 |
-| Prim artışı incelemesine giren poliçe | %33,60 |
+| Prim artışı incelemesine giren poliçe | %33,59 |
 | Chain Ladder IBNR | 170,58 milyon TL |
 | Bornhuetter-Ferguson IBNR | 160,00 milyon TL |
 | İnsan inceleme kuyruğu | 439 hasar / %5,14 |
