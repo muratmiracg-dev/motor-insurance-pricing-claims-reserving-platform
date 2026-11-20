@@ -250,8 +250,12 @@ def generate_portfolio(config: ProjectConfig, n_policies: int | None = None) -> 
 
     remaining = np.maximum(ultimate - paid_to_date, 0)
     is_closed = np.array([payment_date <= valuation for payment_date in full_payment_date])
+    # A loss that occurred before the valuation date but is reported after it is pure
+    # IBNR: the insurer has no claim file, so no case reserve and no operational status.
+    # Its ultimate cost stays in the synthetic truth used to score reserving and pricing.
+    is_reported = (report_date <= valuation).to_numpy()
     reserve_noise = np.clip(rng.normal(0.96, 0.13, size=m), 0.55, 1.35)
-    case_reserve = np.where(is_closed, 0.0, remaining * reserve_noise)
+    case_reserve = np.where(is_closed | ~is_reported, 0.0, remaining * reserve_noise)
     incurred = paid_to_date + case_reserve
     closure_date = pd.Series([date_value if closed else pd.NaT for date_value, closed in zip(full_payment_date, is_closed, strict=True)])
 
@@ -265,7 +269,9 @@ def generate_portfolio(config: ProjectConfig, n_policies: int | None = None) -> 
             "report_date": report_date.reset_index(drop=True),
             "closure_date": closure_date,
             "claim_type": claim_type,
-            "claim_status": np.where(is_closed, "Closed", "Open"),
+            "claim_status": np.select(
+                [is_closed, is_reported], ["Closed", "Open"], default="Unreported"
+            ),
             "garage_id": assigned_garage,
             "garage_watchlist_signal": garage_watchlist,
             "policy_tenure_days": policy_tenure_days,
@@ -300,6 +306,15 @@ def generate_portfolio(config: ProjectConfig, n_policies: int | None = None) -> 
     return datasets
 
 
+UNREPORTED_STATUS = "Unreported"
+CLAIM_STATUSES = ("Open", "Closed", UNREPORTED_STATUS)
+
+
+def reported_claims(claims: pd.DataFrame) -> pd.DataFrame:
+    """Claims the insurer knows about at valuation (excludes synthetic pure-IBNR claims)."""
+    return claims.loc[claims["claim_status"] != UNREPORTED_STATUS]
+
+
 def validate_datasets(datasets: dict[str, pd.DataFrame]) -> None:
     policies = datasets["policies"]
     claims = datasets["claims"]
@@ -317,6 +332,11 @@ def validate_datasets(datasets: dict[str, pd.DataFrame]) -> None:
         raise ValueError("Policy exposure and premium values must be non-negative")
     if (claims[["paid_to_date", "case_reserve", "incurred_amount"]].to_numpy() < 0).any():
         raise ValueError("Claim financial values must be non-negative")
+    if not claims["claim_status"].isin(CLAIM_STATUSES).all():
+        raise ValueError("claim_status must be one of: " + ", ".join(CLAIM_STATUSES))
+    unreported = claims["claim_status"] == UNREPORTED_STATUS
+    if (claims.loc[unreported, ["paid_to_date", "case_reserve", "incurred_amount"]].to_numpy() != 0).any():
+        raise ValueError("Claims not yet reported at valuation cannot carry paid or reserved amounts")
 
 
 def save_datasets(

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Losses that occur before the valuation date but are reported after it (report delays run
+  up to 30 days) were generated as `Open` claims with a case reserve, so the operational
+  KPIs, the human-review queue and the claims-operations mockup treated 18 claims the insurer
+  could not yet know about as known files (TRY 2.09M of case reserve; negative "days since
+  report" in the open-inventory ageing). They now carry `claim_status = "Unreported"` with no
+  paid or reserved amount, are excluded from operational KPIs and triage, and remain in the
+  synthetic ultimate truth used to score reserving and pricing (pricing and reserving outputs
+  are unchanged). `portfolio_kpis.json` adds `unreported_claim_count_synthetic_truth`; claim
+  count 8,542 -> 8,524, incurred TRY 888.56M -> 886.47M, loss ratio 72.23% -> 72.06%,
+  triage lift 3.82x -> 3.81x. The SQL schema accepts the new status and forbids amounts on it.
 - Pricing GLMs now fit with `solver="newton-cholesky", tol=1e-12`. The default L-BFGS stop
   (`tol=1e-4`) left the Poisson and Gamma fits short of the optimum at a point that depended on
   floating-point summation order, so the published coefficients and OOT metrics changed with

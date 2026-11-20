@@ -6,7 +6,7 @@ from typing import Any
 
 
 from .config import ProjectConfig, load_config
-from .data_generation import generate_portfolio, save_datasets, with_policy_count
+from .data_generation import generate_portfolio, reported_claims, save_datasets, with_policy_count
 from .fraud import score_claims_for_review
 from .metrics import build_analysis_frame, compute_portfolio_kpis, finite_json_values, segment_performance
 from .pricing import fit_pricing_models
@@ -78,7 +78,10 @@ def run_pipeline(config: ProjectConfig) -> dict[str, Any]:
     reserve.accident_period_summary.to_csv(config.artifacts_dir / "reserving" / "reserve_by_accident_quarter.csv", index=False)
     write_json(reserve.portfolio_summary, config.artifacts_dir / "reserving" / "reserve_metrics.json")
 
-    fraud = score_claims_for_review(datasets["claims"], alert_rate=config.fraud_alert_rate)
+    # Only claims reported by the valuation date exist in the review workflow.
+    fraud = score_claims_for_review(
+        reported_claims(datasets["claims"]), alert_rate=config.fraud_alert_rate
+    )
     fraud.scored_claims.to_csv(config.artifacts_dir / "fraud" / "claim_triage_scores.csv", index=False, date_format="%Y-%m-%d")
     write_json(fraud.metrics, config.artifacts_dir / "fraud" / "triage_metrics.json")
 

@@ -36,19 +36,19 @@ Sonuçlar `20260902` tohumu ve `31.12.2025` değerleme tarihiyle yeniden üretil
 | Gösterge | Sonuç |
 | --- | ---: |
 | Poliçe / maruziyet yılı | 60.000 / 51.365,60 |
-| Hasar / ödeme kaydı | 8.542 / 14.570 |
+| Bildirilmiş hasar / ödeme kaydı | 8.524 / 14.570 (+değerleme sonrası bildirilen 18 hasar, IBNR) |
 | Kazanılmış prim | 1,230 milyar TL |
-| Gerçekleşen hasar | 888,56 milyon TL |
-| Hasar frekansı | %16,63 |
-| Ortalama hasar şiddeti | 104.022,70 TL |
-| Loss ratio / combined ratio | %72,23 / %103,08 |
+| Gerçekleşen hasar | 886,47 milyon TL |
+| Hasar frekansı | %16,59 |
+| Ortalama hasar şiddeti | 103.997,52 TL |
+| Loss ratio / combined ratio | %72,06 / %102,91 |
 | OOT frekans kalibrasyonu | 0,982 |
 | OOT saf prim kalibrasyonu | 0,866 |
 | Prim artışı incelemesine giren poliçe | %33,59 |
 | Chain Ladder IBNR | 170,58 milyon TL |
 | Bornhuetter-Ferguson IBNR | 160,00 milyon TL |
-| İnsan inceleme kuyruğu | 439 hasar / %5,14 |
-| İnceleme hassasiyeti / rastgeleye göre lift | %14,12 / 3,82 kat |
+| İnsan inceleme kuyruğu | 439 hasar / %5,15 |
+| İnceleme hassasiyeti / rastgeleye göre lift | %14,12 / 3,81 kat |
 | Otomatik hasar reddi | 0 |
 
 Chain Ladder'ın sentetik nihai hasara göre toplam hatası yalnızca `%0,01`'dir.

@@ -41,6 +41,12 @@ def compute_portfolio_kpis(
     claims = claims.copy()
     policies[policy_values.columns] = policy_values
     claims[claim_values.columns] = claim_values
+    # Operational KPIs describe the claims register at valuation. Losses reported after
+    # the valuation date are IBNR: counted only in the synthetic ultimate truth.
+    unreported = claims["claim_status"] == "Unreported"
+    unreported_count = int(unreported.sum())
+    ultimate_truth = float(claims["ultimate_incurred_synthetic_truth"].sum())
+    claims = claims.loc[~unreported]
     exposure = float(policies["exposure_years"].sum())
     written_premium = float(policies["annual_written_premium"].sum())
     earned_premium = float(policies["earned_premium"].sum())
@@ -49,10 +55,9 @@ def compute_portfolio_kpis(
     paid = float(claims["paid_to_date"].sum())
     case_reserve = float(claims["case_reserve"].sum())
     incurred = float(claims["incurred_amount"].sum())
-    ultimate_truth = float(claims["ultimate_incurred_synthetic_truth"].sum())
     claim_count = len(claims)
     open_claims = int((claims["claim_status"] == "Open").sum())
-    closed_claims = claim_count - open_claims
+    closed_claims = int((claims["claim_status"] == "Closed").sum())
 
     loss_ratio = _safe_divide(incurred, earned_premium)
     expense_ratio_actual = _safe_divide(operating_expense + commission_expense, earned_premium)
@@ -64,6 +69,7 @@ def compute_portfolio_kpis(
         "claim_count": claim_count,
         "open_claim_count": open_claims,
         "closed_claim_count": closed_claims,
+        "unreported_claim_count_synthetic_truth": unreported_count,
         "written_premium": round(written_premium, 2),
         "earned_premium": round(earned_premium, 2),
         "paid_claims": round(paid, 2),

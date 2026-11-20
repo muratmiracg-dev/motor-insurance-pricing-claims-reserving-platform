@@ -38,19 +38,19 @@ date `2025-12-31`.
 | Evidence | Verified result |
 | --- | ---: |
 | Policies / exposure years | 60,000 / 51,365.60 |
-| Claims / payment records | 8,542 / 14,570 |
+| Reported claims / payment records | 8,524 / 14,570 (+18 losses reported after valuation, held as IBNR) |
 | Earned premium | TRY 1.230B |
-| Incurred claims | TRY 888.56M |
-| Claim frequency | 16.63% |
-| Average incurred severity | TRY 104,022.70 |
-| Loss ratio / combined ratio | 72.23% / 103.08% |
+| Incurred claims | TRY 886.47M |
+| Claim frequency | 16.59% |
+| Average incurred severity | TRY 103,997.52 |
+| Loss ratio / combined ratio | 72.06% / 102.91% |
 | OOT frequency calibration | 0.982 actual-to-predicted |
 | OOT pure-premium calibration | 0.866 actual-to-predicted |
 | Policies flagged for indicated increase review | 33.59% |
 | Chain Ladder IBNR | TRY 170.58M |
 | Bornhuetter-Ferguson IBNR | TRY 160.00M |
-| Human-review queue | 439 claims / 5.14% |
-| Triage precision / lift | 14.12% / 3.82x |
+| Human-review queue | 439 claims / 5.15% |
+| Triage precision / lift | 14.12% / 3.81x |
 | Automated claim denials | 0 |
 
 The deterministic generator uses stable claim-development mechanics, so the

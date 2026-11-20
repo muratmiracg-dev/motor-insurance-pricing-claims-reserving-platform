@@ -49,7 +49,7 @@
 | `policy_id`, `customer_id`, `vehicle_id`, `garage_id` | Relationship keys |
 | `claim_date`, `report_date`, `closure_date` | Claim lifecycle dates |
 | `claim_type` | Collision, glass, theft, weather, or vandalism |
-| `claim_status` | Open or closed at valuation |
+| `claim_status` | `Open` or `Closed` at valuation; `Unreported` for a loss that occurred before valuation but is reported after it (pure IBNR: no paid amount or case reserve, excluded from operational KPIs and the review queue, included in synthetic ultimate truth) |
 | `policy_tenure_days` | Days from policy inception to loss |
 | `report_delay_days` | Days from loss to notification |
 | `loss_hour` | Synthetic hour of loss |
