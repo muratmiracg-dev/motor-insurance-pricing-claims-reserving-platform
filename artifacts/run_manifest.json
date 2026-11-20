@@ -8,21 +8,22 @@
   "portfolio_kpis": {
     "policy_count": 60000,
     "exposure_years": 51365.6,
-    "claim_count": 8542,
-    "open_claim_count": 1573,
+    "claim_count": 8524,
+    "open_claim_count": 1555,
     "closed_claim_count": 6969,
+    "unreported_claim_count_synthetic_truth": 18,
     "written_premium": 1523426467.02,
     "earned_premium": 1230160546.03,
     "paid_claims": 725753833.13,
-    "case_reserve": 162808036.18,
-    "incurred_claims": 888561869.31,
+    "case_reserve": 160721062.08,
+    "incurred_claims": 886474895.21,
     "ultimate_claims_synthetic_truth": 896209884.8,
-    "claim_frequency": 0.166298,
-    "average_incurred_severity": 104022.7,
-    "loss_ratio": 0.722314,
+    "claim_frequency": 0.165948,
+    "average_incurred_severity": 103997.52,
+    "loss_ratio": 0.720617,
     "expense_and_commission_ratio": 0.308452,
-    "combined_ratio": 1.030766,
-    "open_claim_rate": 0.184149
+    "combined_ratio": 1.029069,
+    "open_claim_rate": 0.182426
   },
   "pricing_validation": {
     "development_policy_count": 41126,
@@ -49,14 +50,14 @@
     "bornhuetter_ferguson_total_error_pct": -0.01167
   },
   "fraud_triage_validation": {
-    "claim_count": 8542,
+    "claim_count": 8524,
     "alert_count": 439,
-    "alert_rate": 0.051393,
+    "alert_rate": 0.051502,
     "score_threshold": 29.0,
-    "synthetic_truth_rate": 0.036994,
+    "synthetic_truth_rate": 0.037072,
     "precision_at_alert_rate": 0.14123,
     "recall_at_alert_rate": 0.196203,
-    "precision_lift_vs_random": 3.817681,
+    "precision_lift_vs_random": 3.809636,
     "automated_claim_denials": 0
   }
 }

@@ -5,11 +5,11 @@
 - Policies: 60,000
 - Exposure years: 51,365.60
 - Earned premium: TRY 1,230,160,546.03
-- Incurred claims: TRY 888,561,869.31
-- Claim frequency: 16.63%
-- Average incurred severity: TRY 104,022.70
-- Loss ratio: 72.23%
-- Combined ratio: 103.08%
+- Incurred claims: TRY 886,474,895.21
+- Claim frequency: 16.59%
+- Average incurred severity: TRY 103,997.52
+- Loss ratio: 72.06%
+- Combined ratio: 102.91%
 
 ## Technical pricing validation
 
@@ -28,9 +28,9 @@
 
 ## Human-controlled fraud triage
 
-- Review queue size: 439 claims (5.14%)
+- Review queue size: 439 claims (5.15%)
 - Precision at review rate: 14.12%
-- Lift versus random review: 3.82x
+- Lift versus random review: 3.81x
 - Automated claim denials: 0
 
 ## Governance boundary
