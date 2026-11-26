@@ -51,13 +51,13 @@
   },
   "fraud_triage_validation": {
     "claim_count": 8524,
-    "alert_count": 439,
-    "alert_rate": 0.051502,
-    "score_threshold": 29.0,
+    "alert_count": 427,
+    "alert_rate": 0.050094,
+    "score_threshold": 24.0,
     "synthetic_truth_rate": 0.037072,
-    "precision_at_alert_rate": 0.14123,
-    "recall_at_alert_rate": 0.196203,
-    "precision_lift_vs_random": 3.809636,
+    "precision_at_alert_rate": 0.128806,
+    "recall_at_alert_rate": 0.174051,
+    "precision_lift_vs_random": 3.474491,
     "automated_claim_denials": 0
   }
 }

@@ -182,6 +182,34 @@ class PipelineComponentTests(unittest.TestCase):
         )
         self.assertTrue(result.scored_claims["triage_score"].between(0, 100).all())
 
+    def test_repeated_claimant_uses_only_claims_reported_earlier(self) -> None:
+        claims = self.datasets["claims"].head(3).copy()
+        claims["customer_id"] = ["CUS-A", "CUS-A", "CUS-B"]
+        claims["report_date"] = pd.to_datetime(["2024-03-01", "2024-09-01", "2024-05-01"])
+        claims["policy_tenure_days"] = 200
+        claims["report_delay_days"] = 1
+        claims["loss_hour"] = 12
+        claims["garage_watchlist_signal"] = False
+        result = score_claims_for_review(claims, alert_rate=1.0).scored_claims
+        self.assertEqual(result["prior_customer_claims"].tolist(), [0, 1, 0])
+        repeated = result["reason_codes"].str.contains("REPEATED_CLAIMANT").tolist()
+        # The first CUS-A claim could not know about the claim reported six months later.
+        self.assertEqual(repeated, [False, True, False])
+
+    def test_review_queue_respects_alert_rate_when_scores_tie(self) -> None:
+        claims = self.datasets["claims"].head(20).copy()
+        claims["customer_id"] = [f"CUS-{i}" for i in range(20)]
+        claims["policy_tenure_days"] = 10  # every claim scores the same short-tenure points
+        claims["report_delay_days"] = 1
+        claims["loss_hour"] = 12
+        claims["garage_watchlist_signal"] = False
+        claims["incurred_amount"] = 1_000.0
+        claims.loc[claims.index[7], "incurred_amount"] = 5_000.0
+        result = score_claims_for_review(claims, alert_rate=0.05)
+        self.assertEqual(result.metrics["alert_count"], 1)
+        # The largest exposure wins the single tied review slot.
+        self.assertTrue(result.scored_claims.loc[claims.index[7], "review_recommended"])
+
     def test_fraud_triage_rejects_ambiguous_boolean_signals(self) -> None:
         claims = self.datasets["claims"].head(3).copy()
         for column, value in (("garage_watchlist_signal", "False"), ("fraud_synthetic_truth", 0)):
