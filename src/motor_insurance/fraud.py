@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Any
 
@@ -31,6 +32,7 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
     required = {
         "claim_id",
         "customer_id",
+        "report_date",
         "incurred_amount",
         "policy_tenure_days",
         "report_delay_days",
@@ -54,21 +56,32 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
         raise ValueError("fraud triage monetary and duration inputs cannot be negative")
     if not numeric["loss_hour"].between(0, 23).all():
         raise ValueError("loss_hour must be between 0 and 23")
-    claims = claims.assign(**{column: numeric[column] for column in numeric})
+    report_date = pd.to_datetime(claims["report_date"], errors="coerce")
+    if report_date.isna().any():
+        raise ValueError("report_date must contain only valid dates")
+    claims = claims.assign(
+        **{column: numeric[column] for column in numeric}, report_date=report_date
+    )
     for column in ("garage_watchlist_signal", "fraud_synthetic_truth"):
         values = claims[column]
         if not values.map(lambda value: isinstance(value, (bool, np.bool_))).all():
             raise ValueError(f"{column} must contain only boolean values")
 
     frame = claims.copy()
-    customer_claim_count = frame.groupby("customer_id")["claim_id"].transform("count")
+    # Claims the same customer had already reported when this claim arrived. Counting the
+    # customer's whole claim file let a first claim be flagged because of a claim reported
+    # months later: information the reviewer cannot have at triage time, which inflated the
+    # measured precision and lift.
+    prior_customer_claims = (
+        frame.groupby("customer_id")["report_date"].rank(method="min").astype(int) - 1
+    )
     high_severity_threshold = float(frame["incurred_amount"].quantile(0.95))
     very_high_severity_threshold = float(frame["incurred_amount"].quantile(0.99))
 
     short_tenure = frame["policy_tenure_days"] <= 30
     delayed_report = frame["report_delay_days"] >= 10
     unusual_hour = (frame["loss_hour"] <= 4) | (frame["loss_hour"] >= 23)
-    repeated_customer = customer_claim_count >= 2
+    repeated_customer = prior_customer_claims >= 1
     high_severity = frame["incurred_amount"] >= high_severity_threshold
     very_high_severity = frame["incurred_amount"] >= very_high_severity_threshold
     watchlist_garage = frame["garage_watchlist_signal"]
@@ -82,11 +95,20 @@ def score_claims_for_review(claims: pd.DataFrame, alert_rate: float = 0.05) -> F
         + very_high_severity.astype(int) * 8
         + watchlist_garage.astype(int) * 22
     )
+    frame["prior_customer_claims"] = prior_customer_claims
     frame["triage_score"] = np.clip(score, 0, 100)
-    threshold = float(
-        frame["triage_score"].quantile(max(0.0, 1.0 - alert_rate), interpolation="lower")
+    # Review capacity is a fixed share of claims. Rule scores take few distinct values, so a
+    # plain score cut-off can admit every tied claim and overshoot the queue; ties at the
+    # boundary are broken by incurred amount (largest exposure first), then claim_id.
+    queue_size = math.ceil(alert_rate * len(frame))
+    queue_order = frame.assign(_claim_id=frame["claim_id"].astype(str)).sort_values(
+        ["triage_score", "incurred_amount", "_claim_id"],
+        ascending=[False, False, True],
+        kind="mergesort",
     )
-    frame["review_recommended"] = frame["triage_score"] >= threshold
+    selected = queue_order.index[:queue_size]
+    frame["review_recommended"] = frame.index.isin(selected)
+    threshold = float(frame.loc[selected, "triage_score"].min())
     frame["review_priority"] = pd.cut(
         frame["triage_score"],
         bins=[-1, 19, 39, 59, 100],

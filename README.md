@@ -49,8 +49,8 @@ date `2025-12-31`.
 | Policies flagged for indicated increase review | 33.59% |
 | Chain Ladder IBNR | TRY 170.58M |
 | Bornhuetter-Ferguson IBNR | TRY 160.00M |
-| Human-review queue | 439 claims / 5.15% |
-| Triage precision / lift | 14.12% / 3.81x |
+| Human-review queue | 427 claims / 5.01% |
+| Triage precision / lift | 12.88% / 3.47x |
 | Automated claim denials | 0 |
 
 The deterministic generator uses stable claim-development mechanics, so the
@@ -118,7 +118,8 @@ evidence.
 
 ### 5. Human-controlled fraud triage
 
-- Short policy tenure, delayed reporting, repeated claimant, unusual loss hour,
+- Short policy tenure, delayed reporting, a prior claim already reported by the same
+  customer (no look-ahead), unusual loss hour,
   high severity, and garage-network reason codes
 - Constrained review queue rather than automated claim action
 - Precision, recall, and lift measured against synthetic truth

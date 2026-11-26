@@ -47,8 +47,8 @@ Sonuçlar `20260902` tohumu ve `31.12.2025` değerleme tarihiyle yeniden üretil
 | Prim artışı incelemesine giren poliçe | %33,59 |
 | Chain Ladder IBNR | 170,58 milyon TL |
 | Bornhuetter-Ferguson IBNR | 160,00 milyon TL |
-| İnsan inceleme kuyruğu | 439 hasar / %5,15 |
-| İnceleme hassasiyeti / rastgeleye göre lift | %14,12 / 3,81 kat |
+| İnsan inceleme kuyruğu | 427 hasar / %5,01 |
+| İnceleme hassasiyeti / rastgeleye göre lift | %12,88 / 3,47 kat |
 | Otomatik hasar reddi | 0 |
 
 Chain Ladder'ın sentetik nihai hasara göre toplam hatası yalnızca `%0,01`'dir.

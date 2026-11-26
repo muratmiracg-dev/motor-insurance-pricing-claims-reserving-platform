@@ -28,9 +28,9 @@
 
 ## Human-controlled fraud triage
 
-- Review queue size: 439 claims (5.15%)
-- Precision at review rate: 14.12%
-- Lift versus random review: 3.81x
+- Review queue size: 427 claims (5.01%)
+- Precision at review rate: 12.88%
+- Lift versus random review: 3.47x
 - Automated claim denials: 0
 
 ## Governance boundary
